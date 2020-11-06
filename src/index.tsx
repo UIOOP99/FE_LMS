@@ -1,17 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { MuiThemeProvider } from "@material-ui/core/styles";
+//@ts-ignore
+import * as Theme from "constants/theme";
+import React from "react";
+import ReactDOM from "react-dom";
+import { Router } from "react-router-dom";
+import App from "Scenes/App";
+import RTLProvider from "Scenes/components/RTLProvider";
+import { browserHistory } from "services/navigation";
+import "styles/global.css";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+const Main = () => (
+  <MuiThemeProvider theme={Theme.theme}>
+    <Router history={browserHistory}>
+      <RTLProvider>
+        <App />
+      </RTLProvider>
+    </Router>
+  </MuiThemeProvider>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+ReactDOM.render(<Main />, document.querySelector("#root"));

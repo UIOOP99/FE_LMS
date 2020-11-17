@@ -3,22 +3,22 @@ import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@material-ui/core';
 
-const HomeworkTable = () => {
+const useStyles = makeStyles({
+    table: {
+        minWidth: 650,
+    },
+    container: {
+        width: "90%",
+        margin: "1% auto",
+    },
+    guide: {
+        fontSize: "1.3em",
+        width: "fit-content",
+        margin: "1% auto",
+    }
+});
 
-    const useStyles = makeStyles({
-        table: {
-            minWidth: 650,
-        },
-        container: {
-            width: "90%",
-            margin: "1% auto",
-        },
-        guide: {
-            fontSize: "1.3em",
-            width: "fit-content",
-            margin: "1% auto",
-        }
-    });
+const HomeworkTable = () => {
 
     function createData(name: string, studentNumber:number, fileUploaded: string, date: string) {
         return { name, studentNumber, fileUploaded, date };

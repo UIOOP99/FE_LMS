@@ -148,13 +148,15 @@ const MessageCard = ({
     );
   };
 
-  const renderMenuItems = () => {
-    // TODO: render options conditionally
+  // TODO: render options conditionally
+  const renderDeleteMenuItem = () => {
     return (
-      <>
         <MenuItem>حذف</MenuItem>
+    );
+  };  
+  const renderReportMenuItem = () => {
+    return (
         <MenuItem>گزارش</MenuItem>
-      </>
     );
   };
 
@@ -170,7 +172,8 @@ const MessageCard = ({
         open={!!moreOptionsMenuAnchor}
         onClose={() => setMoreOptionsMenuAnchor(null)}
       >
-        {renderMenuItems()}
+        {renderDeleteMenuItem()}
+        {renderReportMenuItem()}
       </Menu>
     </Card>
   );

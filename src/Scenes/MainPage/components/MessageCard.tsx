@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Avatar, Button, Card, Grid, IconButton, makeStyles, Typography } from '@material-ui/core';
+import { Avatar, Button, Card, Grid, IconButton, makeStyles, Menu, MenuItem, Typography } from '@material-ui/core';
 import { MoreHoriz } from '@material-ui/icons';
 import moment from 'moment-jalaali';
 
@@ -57,26 +57,46 @@ const MessageCard = ({
   }: IMessageCardProps) => {
   const classes = useStyles();
 
+  const [moreOptionsMenuAnchor, setMoreOptionsMenuAnchor] = useState<HTMLElement | null>(null);
+
+  const handleUserProfileClick = () => {
+    return;
+  };
+
+  const handleClassRoomClick = () => {
+    return;
+  };
+
+  const handleAttachedFileClick = (file: IFile) => {
+    return;
+  };
+
+  const handleShowAnswersClick = () => {
+    return;
+  };
+
   const renderHeader = () => {
     return (
       <Grid className={classes.headerContainer} item xs={12} container spacing={2}>
         <Grid className={classes.avatarContainer} item>
-          <Avatar src="avatar"/>
+          <IconButton onClick={handleUserProfileClick}>
+            <Avatar src="avatar"/>
+          </IconButton>
         </Grid>
         <Grid item container xs direction="column">
           <Grid item >
-            <Typography variant="body1">
+            <Typography variant="body1" onClick={handleUserProfileClick}>
               {userFullName}
             </Typography>
           </Grid>
           <Grid item >
-            <Typography variant="h6">
+            <Typography variant="h6" onClick={handleClassRoomClick}>
               {classRoomName}
             </Typography>
           </Grid>
         </Grid>
         <Grid className={classes.moreButtonContainer} item>
-          <IconButton>
+          <IconButton onClick={(e) => setMoreOptionsMenuAnchor(e.currentTarget)}>
             <MoreHoriz />
           </IconButton>
         </Grid>
@@ -92,7 +112,13 @@ const MessageCard = ({
         </Grid>
         <Grid item container spacing={2}>
           {attachedFiles && attachedFiles.map((file) => (
-            <Button variant="text">{file.fileName}</Button>
+            <Button 
+              key={file.fileName} 
+              variant="text" 
+              onClick={() => handleAttachedFileClick(file)}
+            >
+              {file.fileName}
+            </Button>
           ))}
         </Grid>
       </Grid>
@@ -106,13 +132,29 @@ const MessageCard = ({
       {
         userAnswers && 
         (<Grid item>
-          <Button variant="contained" disableElevation>مشاهده جواب‌ها</Button>
+          <Button 
+            variant="contained" 
+            disableElevation
+            onClick={handleShowAnswersClick}
+          >
+            مشاهده جواب‌ها
+          </Button>
         </Grid>)}
       <Grid item xs/>
       <Grid className={classes.dateStringContainer} item>
         <Typography variant="body1">{dateString}</Typography>
       </Grid>
       </Grid>
+    );
+  };
+
+  const renderMenuItems = () => {
+    // TODO: render options conditionally
+    return (
+      <>
+        <MenuItem>حذف</MenuItem>
+        <MenuItem>گزارش</MenuItem>
+      </>
     );
   };
 
@@ -123,6 +165,13 @@ const MessageCard = ({
         {renderContent()}
         {renderFooter()}
       </Grid>
+      <Menu
+        anchorEl={moreOptionsMenuAnchor}
+        open={!!moreOptionsMenuAnchor}
+        onClose={() => setMoreOptionsMenuAnchor(null)}
+      >
+        {renderMenuItems()}
+      </Menu>
     </Card>
   );
 };

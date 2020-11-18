@@ -29,7 +29,27 @@ interface IMessageCardProps {
 const useStyles = makeStyles((theme) => ({
   card: {
     padding: theme.spacing(2)
-  }
+  },
+  headerContainer: {
+    marginBottom :theme.spacing(1),
+  }, 
+  contentContainer: {
+    marginBottom :theme.spacing(1),    
+  },
+  footerContainer: {
+  },
+  avatarContainer: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  moreButtonContainer: {
+    display: 'flex',
+    alignItems: 'center',    
+  },
+  dateStringContainer: {
+    display: 'flex',
+    alignItems: 'center',    
+  },
 }));
 
 const MessageCard = ({
@@ -39,8 +59,8 @@ const MessageCard = ({
 
   const renderHeader = () => {
     return (
-      <Grid item xs={12} container spacing={2}>
-        <Grid item>
+      <Grid className={classes.headerContainer} item xs={12} container spacing={2}>
+        <Grid className={classes.avatarContainer} item>
           <Avatar src="avatar"/>
         </Grid>
         <Grid item container xs direction="column">
@@ -55,7 +75,7 @@ const MessageCard = ({
             </Typography>
           </Grid>
         </Grid>
-        <Grid item>
+        <Grid className={classes.moreButtonContainer} item>
           <IconButton>
             <MoreHoriz />
           </IconButton>
@@ -66,7 +86,7 @@ const MessageCard = ({
 
   const renderContent = () => {
     return (
-      <Grid item xs={12} container spacing={2}>
+      <Grid className={classes.contentContainer} item xs={12} container spacing={2}>
         <Grid item xs={12}>
             <Typography variant="body1">{message}</Typography>
         </Grid>
@@ -82,14 +102,14 @@ const MessageCard = ({
   const renderFooter = () => {
     const dateString = moment(messageDate).fromNow();
     return (
-      <Grid item xs={12} container spacing={2}>
+      <Grid className={classes.footerContainer} item xs={12} container spacing={2}>
       {
         userAnswers && 
         (<Grid item>
           <Button variant="contained" disableElevation>مشاهده جواب‌ها</Button>
         </Grid>)}
       <Grid item xs/>
-      <Grid item>
+      <Grid className={classes.dateStringContainer} item>
         <Typography variant="body1">{dateString}</Typography>
       </Grid>
       </Grid>

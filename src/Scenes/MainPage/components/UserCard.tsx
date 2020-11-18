@@ -11,6 +11,7 @@ export interface IUserCardProps {
 const useStyles = makeStyles((theme) => ({
   card: {
     padding: theme.spacing(2),
+    backgroundColor: theme.palette.grey['100'],
   },
   avatarContainer: {
     display: 'flex',

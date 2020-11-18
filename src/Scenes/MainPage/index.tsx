@@ -40,6 +40,7 @@ const index = () => {
         messageDate={messageCardMocks[0].messageDate}
         userAnswers={messageCardMocks[0].userAnswers}
       />
+      &nbsp;
       <Grid container>
         <Grid item xs={3}>
           <UserCard 

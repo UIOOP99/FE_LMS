@@ -16,7 +16,7 @@ interface IUserAnswer {
   answer: string,
 }
 
-interface IMessageCardProps {
+export interface IMessageCardProps {
   userFullName: string,
   avatar?: string,
   classRoomName?: string,

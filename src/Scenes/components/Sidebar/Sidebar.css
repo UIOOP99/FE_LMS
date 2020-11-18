@@ -1,0 +1,32 @@
+.sidebar-container {
+  height: 80vh;
+  width: 400px;
+  border-radius: 5px;
+  padding: 1rem;
+  background-color: #ededed;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.sidebar-header-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.sidebar-header span {
+  margin-right: 0.5rem;
+  align-self: flex-end;
+  letter-spacing: 1px;
+  font-size: 14px;
+  color: black;
+}
+.sidebar-header div {
+  align-self: center;
+}

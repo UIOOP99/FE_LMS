@@ -1,0 +1,26 @@
+.session-card-container {
+  display: flex;
+  align-items: flex-start;
+  padding: 0.5rem 1rem;
+  background-color: #ededed;
+  width: 350px;
+}
+.session-card-icon {
+  font-size: 40px;
+}
+.session-card-texts {
+  display: flex;
+  flex-direction: column;
+  margin-right: 0.75rem;
+}
+.session-card-name {
+  font-weight: bold;
+  font-size: 18px;
+}
+.session-card-date {
+  font-size: 16px;
+}
+.session-card-status {
+  font-size: 14px;
+  margin-top: 0.5rem;
+}

@@ -34,12 +34,14 @@ const useStyles = makeStyles((theme) => ({
   },
   arrow: {
     position: 'absolute',
-    width: theme.spacing(2),
-    height: theme.spacing(2),
-    right: '12px',
-    top: '-4px',
-    backgroundColor: 'white',
-    transform: 'rotateZ(45deg)',
+    right: theme.spacing(0.5),
+    top: theme.spacing(-1),
+    width: '0',
+    height: '0',
+    borderLeft: `${theme.spacing(2)}px solid transparent`,
+    borderRight: `${theme.spacing(2)}px solid transparent`,
+    borderBottom: `${theme.spacing(2)}px solid ${theme.palette.background.paper}`,
+    
   }
 }));
 

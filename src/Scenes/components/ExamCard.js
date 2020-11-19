@@ -5,12 +5,14 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import sample_image from "../../assets/static/logo512.png";
+import PropTypes from 'prop-types';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 300,
     position: "relative",
     margin: theme.spacing(2),
-    backgroundColor: "gray",
+    backgroundColor: "#eeeeee",
   },
   
   avatar_container : {
@@ -90,5 +92,12 @@ function ExamCard(props) {
     </Card>
   );
 }
+
+ExamCard.propTypes = {
+  ExamName : PropTypes.string , 
+  ExamDate : PropTypes.string , 
+  ExamTime : PropTypes.string , 
+  ExamStatus : PropTypes.string 
+};
 
 export default ExamCard;

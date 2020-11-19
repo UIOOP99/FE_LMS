@@ -1,7 +1,8 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, SyntheticEvent, useState } from 'react';
 import { Avatar, Button, Grid, IconButton, makeStyles } from '@material-ui/core';
 import { redirect } from 'services/navigation';
 import { Home, Settings } from '@material-ui/icons';
+import ProfilePopover from './ProfilePopover';
 
 interface ILink {
   title: string,
@@ -55,14 +56,16 @@ const navbarLinks: ILink[] = [
 const Navbar = () => {
   const classes = useStyles();
 
+  const [profilePopoverAnchor, setProfilePopoverAnchor] = useState<HTMLElement | null>(null);
+
   const handleNavigateToLink = (path: string) => redirect(path);
 
   const handleSettingClick = () => {
     return;
   };
   
-  const handleAvatarClick = () => {
-    return;
+  const handleAvatarClick = (e: SyntheticEvent<HTMLElement>) => {
+    setProfilePopoverAnchor(e.currentTarget);
   };
 
   const renderLink = (link: ILink) => {
@@ -111,6 +114,11 @@ const Navbar = () => {
     <Grid container>
       {renderNavbarBannerImage()}
       {renderNavbar()}
+      <ProfilePopover 
+        open={!!profilePopoverAnchor} 
+        anchorEl={profilePopoverAnchor} 
+        onClose={() => setProfilePopoverAnchor(null)}
+      />
     </Grid>
   );
 };

@@ -1,7 +1,17 @@
-import { Card, Grid } from "@material-ui/core";
+import { Card, Grid, makeStyles } from "@material-ui/core";
 import React from "react";
+import Spacer from "Scenes/components/Spacer";
 import Navbar from "./components/Navbar";
 
+
+const useStyles = makeStyles({
+  gridContainer: {
+    height: '100%',
+    overflow: 'hidden',
+  }
+});
+
+// this component is only a placeholder and should be removed after actual components have been replaced.
 const Filler = ({ text, height }: {text:string, height: string}) => (
   <Card 
     style={{
@@ -14,28 +24,33 @@ const Filler = ({ text, height }: {text:string, height: string}) => (
   </Card>
 );
 
-const index = () => {
+const Index = () => {
+  const classes = useStyles();
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={12}>
-        <Navbar />
-      </Grid>
-      <Grid item xs={3}>
-        <Filler height="100%" text="insert right sidebar component here"/>
-      </Grid>
-      <Grid item xs={6} container spacing={2}>
-        <Grid item xs={12}>
-          <Filler height="100px" text="insert create post component here"/>
+    <>
+      <Navbar />
+      <Spacer spacing={2} orientation="h"/>
+      <Grid className={classes.gridContainer} container>
+        <Grid item xs={3}>
+          <Filler height="100%" text="insert right sidebar component here"/>
         </Grid>
-        <Grid item xs={12}>
-          <Filler height="calc(100vh - 284px)" text="insert filter and message list component here"/>
+        <Spacer spacing={2} orientation="v"/>
+        <Grid item xs container direction="column">
+          <Grid item>
+            <Filler height="100px" text="insert create post component here"/>
+          </Grid>
+          <Spacer spacing={2} orientation="h"/>
+          <Grid item xs>
+            <Filler height="100%" text="insert filter and message list component here"/>
+          </Grid>
+        </Grid>
+        <Spacer spacing={2} orientation="v"/>
+        <Grid item xs={3}>
+          <Filler height="100%" text="insert left sidebar component here"/>
         </Grid>
       </Grid>
-      <Grid item xs={3}>
-        <Filler height="100%" text="insert left sidebar component here"/>
-      </Grid>
-    </Grid>
+    </>
   );
 };
 
-export default index;
+export default Index;

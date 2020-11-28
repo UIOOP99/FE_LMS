@@ -6,8 +6,8 @@ import Navbar from "./components/Navbar";
 
 const useStyles = makeStyles({
   gridContainer: {
-    height: '100%',
-    overflow: 'hidden',
+    // height: '100%',
+    // overflow: 'hidden',
   }
 });
 
@@ -27,21 +27,21 @@ const Filler = ({ text, height }: {text:string, height: string}) => (
 const Index = () => {
   const classes = useStyles();
   return (
-    <>
+    <Grid className={classes.gridContainer} container direction="column">
       <Navbar />
       <Spacer spacing={2} orientation="h"/>
-      <Grid className={classes.gridContainer} container>
+      <Grid item xs container wrap="nowrap">
         <Grid item xs={3}>
           <Filler height="100%" text="insert right sidebar component here"/>
         </Grid>
         <Spacer spacing={2} orientation="v"/>
-        <Grid item xs container direction="column">
+        <Grid item xs container direction="column" wrap="nowrap">
           <Grid item>
             <Filler height="100px" text="insert create post component here"/>
           </Grid>
           <Spacer spacing={2} orientation="h"/>
           <Grid item xs>
-            <Filler height="100%" text="insert filter and message list component here"/>
+            <Filler height="700px" text="insert filter and message list component here"/>
           </Grid>
         </Grid>
         <Spacer spacing={2} orientation="v"/>
@@ -49,7 +49,7 @@ const Index = () => {
           <Filler height="100%" text="insert left sidebar component here"/>
         </Grid>
       </Grid>
-    </>
+    </Grid>
   );
 };
 

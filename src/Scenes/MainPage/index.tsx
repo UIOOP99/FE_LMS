@@ -1,15 +1,7 @@
-import { Card, Grid, makeStyles } from "@material-ui/core";
+import { Card, Grid } from "@material-ui/core";
 import React from "react";
 import Spacer from "Scenes/components/Spacer";
 import Navbar from "./components/Navbar";
-
-
-const useStyles = makeStyles({
-  gridContainer: {
-    // height: '100%',
-    // overflow: 'hidden',
-  }
-});
 
 // this component is only a placeholder and should be removed after actual components have been replaced.
 const Filler = ({ text, height }: {text:string, height: string}) => (
@@ -25,9 +17,8 @@ const Filler = ({ text, height }: {text:string, height: string}) => (
 );
 
 const Index = () => {
-  const classes = useStyles();
   return (
-    <Grid className={classes.gridContainer} container direction="column">
+    <Grid container direction="column">
       <Navbar />
       <Spacer spacing={2} orientation="h"/>
       <Grid item xs container wrap="nowrap">

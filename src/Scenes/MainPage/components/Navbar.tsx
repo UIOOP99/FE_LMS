@@ -22,6 +22,8 @@ const useStyles = makeStyles((theme) => ({
     minHeight: theme.spacing(5),
     padding: theme.spacing(0, 1),
     backgroundColor: theme.palette.grey['100'],
+    position: 'sticky',
+    top: 0,
   },
   linkContainer: {
     display: 'flex',
@@ -86,12 +88,12 @@ const Navbar = () => {
 
   const renderNavbarBannerImage = () => {
     return (
-      <Grid className={classes.navbarBanner} item xs={12} >BANNER</Grid>
+      <div className={classes.navbarBanner}>BANNER</div>
     );
   };
   const renderNavbar = () => {
     return (
-      <Grid className={classes.navbar} item container xs={12}>
+      <Grid className={classes.navbar} container>
         {navbarLinks.map(renderLink)}
 
         <Grid item xs />
@@ -111,7 +113,7 @@ const Navbar = () => {
   };
   
   return (
-    <Grid container>
+    <>
       {renderNavbarBannerImage()}
       {renderNavbar()}
       <ProfilePopover 
@@ -119,7 +121,7 @@ const Navbar = () => {
         anchorEl={profilePopoverAnchor} 
         onClose={() => setProfilePopoverAnchor(null)}
       />
-    </Grid>
+    </>
   );
 };
 

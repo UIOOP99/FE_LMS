@@ -3,8 +3,8 @@ import { Avatar, Card, CardActionArea, Grid, makeStyles, Typography } from '@mat
 
 export interface IUserCardProps {
   userFullName: string,
-  userAvatar?: string,
-  identificationNumber?: string,
+  avatarUrl?: string,
+  idNumber?: string,
   showIdNumber?: boolean,
 }
 
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const UserCard = ({userFullName, userAvatar, identificationNumber, showIdNumber = false}: IUserCardProps) => {
+const UserCard = ({userFullName, avatarUrl, idNumber, showIdNumber = false}: IUserCardProps) => {
   const classes = useStyles();
   const handleUserProfileClick = () => {
     return;
@@ -34,7 +34,7 @@ const UserCard = ({userFullName, userAvatar, identificationNumber, showIdNumber 
       <CardActionArea className={classes.card} onClick={handleUserProfileClick}>
         <Grid container spacing={2}>
           <Grid className={classes.avatarContainer} item>
-              <Avatar className={classes.avatar} src={userAvatar}/>
+              <Avatar className={classes.avatar} src={avatarUrl}/>
           </Grid>
           <Grid item container xs direction="column" justify="center">
             <Grid item >
@@ -44,7 +44,7 @@ const UserCard = ({userFullName, userAvatar, identificationNumber, showIdNumber 
             </Grid>
             {showIdNumber && (<Grid item >
               <Typography variant="caption">
-                {identificationNumber}
+                {idNumber}
               </Typography>
             </Grid>)}
           </Grid>

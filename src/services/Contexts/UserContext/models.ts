@@ -1,5 +1,8 @@
 export interface IUserState {
   username: string;
+  fullName?: string,
+  idNumber?: string,
+  avatarUrl?: string,
   isAuth: boolean;
   rule: "user" | "company" | "admin" | "";
 }

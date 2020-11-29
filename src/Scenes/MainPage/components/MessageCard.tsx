@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Avatar, Button, Card, Grid, IconButton, makeStyles, Menu, MenuItem, Typography } from '@material-ui/core';
 import { MoreHoriz } from '@material-ui/icons';
 import moment from 'moment-jalaali';
+import { useUserState } from 'services/Contexts/UserContext';
 
 
 interface IFile {
@@ -12,13 +13,13 @@ interface IFile {
 
 interface IUserAnswer {
   userFullName: string,
-  avatar?: string,
+  avatarUrl?: string,
   answer: string,
 }
 
 export interface IMessageCardProps {
   userFullName: string,
-  avatar?: string,
+  avatarUrl?: string,
   classRoomName?: string,
   message: string,
   attachedFiles?: IFile[],
@@ -53,11 +54,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MessageCard = ({
-    userFullName, avatar, classRoomName, message, attachedFiles, userAnswers, messageDate,
+    userFullName, avatarUrl, classRoomName, message, attachedFiles, userAnswers, messageDate,
   }: IMessageCardProps) => {
   const classes = useStyles();
 
+  const {rule} = useUserState();
   const [moreOptionsMenuAnchor, setMoreOptionsMenuAnchor] = useState<HTMLElement | null>(null);
+
+  const showAnswersButton = rule === 'admin';
 
   const handleUserProfileClick = () => {
     return;
@@ -80,7 +84,7 @@ const MessageCard = ({
       <Grid className={classes.headerContainer} item xs={12} container spacing={2}>
         <Grid className={classes.avatarContainer} item>
           <IconButton onClick={handleUserProfileClick}>
-            <Avatar src="avatar"/>
+            <Avatar src={avatarUrl}/>
           </IconButton>
         </Grid>
         <Grid item container xs direction="column">
@@ -130,7 +134,7 @@ const MessageCard = ({
     return (
       <Grid className={classes.footerContainer} item xs={12} container spacing={2}>
       {
-        userAnswers && 
+        showAnswersButton && userAnswers && 
         (<Grid item>
           <Button 
             variant="contained" 

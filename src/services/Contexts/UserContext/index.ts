@@ -2,7 +2,9 @@ import { createContext, Dispatch, useContext } from "react";
 import { AppActions } from "../AppActions";
 import { IUserState } from "./models";
 const initial: IUserState = {
-  username: "ali",
+  username: "amirreza",
+  idNumber: '963613009',
+  fullName: 'امیررضا اسماعیلی',
   isAuth: true,
   rule: "admin",
 };

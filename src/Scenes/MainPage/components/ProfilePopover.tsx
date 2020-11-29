@@ -2,14 +2,7 @@ import React from 'react';
 import { Avatar, Button, Grid, makeStyles, Popover, Typography } from '@material-ui/core';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import EditIcon from '@material-ui/icons/Edit';
-
-const profilePopoverMocks = [
-  {
-    userFullName: 'امیررضا اسماعیلی',
-    identificationNumber: '963613009',
-    avatar: '',
-  }
-];
+import { useUserState } from 'services/Contexts/UserContext';
 
 interface IProfilePopoverProps {
   open: boolean,
@@ -47,10 +40,8 @@ const useStyles = makeStyles((theme) => ({
 
 const ProfilePopover = ({open, anchorEl, onClose}: IProfilePopoverProps) => {
   const classes = useStyles();
-  
-  const [{userFullName}] = profilePopoverMocks;
-  const [{identificationNumber}] = profilePopoverMocks;
-  const [{avatar}] = profilePopoverMocks;
+
+  const {fullName: userFullName, idNumber, avatarUrl} = useUserState();
 
   return (
     <Popover PaperProps={{className: classes.popoverContainer}} open={open} anchorEl={anchorEl} onClose={onClose} anchorOrigin={{horizontal: 'left', vertical: "bottom"}}>
@@ -64,12 +55,12 @@ const ProfilePopover = ({open, anchorEl, onClose}: IProfilePopoverProps) => {
           </Grid>
           <Grid item>
             <Typography>
-              {identificationNumber}
+              {idNumber}
             </Typography>
           </Grid>
         </Grid>
         <Grid className={classes.avatarContainer} item>
-          <Avatar className={classes.avatar} src={avatar}/>
+          <Avatar className={classes.avatar} src={avatarUrl}/>
         </Grid>
       </Grid>
       <Grid container justify="space-evenly">

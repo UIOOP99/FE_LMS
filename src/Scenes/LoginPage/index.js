@@ -8,119 +8,138 @@ import {
   Typography,
   Toolbar,
   Link,
+  makeStyles,
 } from "@material-ui/core";
-class Login extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { username: "", password: "", authflag: 1 };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-  handleChange(event) {
-    this.setState({
-      username: event.state.username,
-      password: event.state.password,
-    });
-  }
-  handleSubmit(event) {
-    event.preventDefault();
-    
-  }
+import Axios from "axios";
 
-  render() {
-    return (
-      <div>
-        <AppBar position="static" alignitems="center" color="primary">
-          <Toolbar>
-            <Grid container justify="center" wrap="wrap">
-              <Grid item>
-                <Typography variant="h6">سامانه مدیریت یادگیری</Typography>
-              </Grid>
-            </Grid>
-            <Grid container justify="flex-start">
-                <Typography variant="h6">دانشگاه اصفهان</Typography>
-              </Grid>
-          </Toolbar>
-        </AppBar>
-        <Grid container spacing={0} justify="center" direction="row">
-          <Grid item>
-            <Grid
-              container
-              direction="column"
-              justify="center"
-              spacing={2}
-              className="login-form"
-            >
-              <Paper
-                variant="elevation"
-                elevation={2}
-                className="login-background"
-              >
-                <Grid item>
-                  <Typography component="h1" variant="h5">
-                    Sign in
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <form onSubmit={this.handleSubmit}>
-                    <Grid container direction="column" spacing={2}>
-                      <Grid item>
-                        <TextField
-                          type="email"
-                          placeholder="Email"
-                          fullWidth
-                          name="username"
-                          variant="outlined"
-                          value={this.state.username}
-                          onChange={(event) =>
-                            this.setState({
-                              [event.target.name]: event.target.value,
-                            })
-                          }
-                          required
-                          autoFocus
-                        />
-                      </Grid>
-                      <Grid item>
-                        <TextField
-                          type="password"
-                          placeholder="Password"
-                          fullWidth
-                          name="password"
-                          variant="outlined"
-                          value={this.state.password}
-                          onChange={(event) =>
-                            this.setState({
-                              [event.target.name]: event.target.value,
-                            })
-                          }
-                          required
-                        />
-                      </Grid>
-                      <Grid item>
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          type="submit"
-                          className="button-block"
-                        >
-                          Submit
-                        </Button>
-                      </Grid>
-                    </Grid>
-                  </form>
-                </Grid>
-                <Grid item>
-                  <Link href="#" variant="body2">
-                    Forgot Password?
-                  </Link>
-                </Grid>
-              </Paper>
+let useStyles = makeStyles((theme) => ({
+  loginForm: {
+    justifyContent: "center",
+    minHeight: "90vh",
+    width: window.innerWidth > 500 ? 500 : 300,
+    maxWidth: 700,
+  },
+  buttonBlock: {
+    width: "100%",
+  },
+  loginBackground: {
+    justifyContent: "center",
+    minHeight: "30vh",
+    padding: "50px",
+  },
+}));
+
+function Login() {
+  let username, password;
+  let width;
+  const classes = useStyles();
+
+  const handleChange = (event) => {
+    if (event.target.name == "username") username = event.target.value;
+    else password = event.target.value;
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const url = "";
+    console.log(username);
+    console.log(password);
+
+    // const data = {
+    //     username : username ,
+    //     password : password
+    // }
+    // Axios.post(url,data).then(res =>{
+    //     console.log(res.token);
+    // })
+    // .catch(err =>{
+    //     console.log(err)
+    // })
+  };
+
+  return (
+    <div>
+      <AppBar position="static" alignitems="center" color="primary">
+        <Toolbar>
+          <Grid container justify="center" wrap="wrap">
+            <Grid item>
+              <Typography variant="h6">
+                سامانه مدیریت یادگیری دانشگاه اصفهان
+              </Typography>
             </Grid>
           </Grid>
+        </Toolbar>
+      </AppBar>
+
+      <Grid container justify="center" direction="row">
+        <Grid item>
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            spacing={2}
+            className={classes.loginForm}
+          >
+            <Paper
+              variant="elevation"
+              elevation={2}
+              className={classes.loginBackground}
+            >
+              <Grid item>
+                <Typography component="h1" variant="h5">
+                  ورود
+                </Typography>
+              </Grid>
+              <Grid item>
+                <form onSubmit={handleSubmit}>
+                  <Grid container direction="column" spacing={2}>
+                    <Grid item>
+                      <TextField
+                        type="text"
+                        placeholder="شماره دانشجویی"
+                        fullWidth
+                        name="username"
+                        variant="outlined"
+                        // value={username}
+                        onChange={(event) => {
+                          handleChange(event);
+                        }}
+                        required
+                        autoFocus
+                      />
+                    </Grid>
+                    <Grid item>
+                      <TextField
+                        type="password"
+                        placeholder="رمز عبور"
+                        fullWidth
+                        name="password"
+                        variant="outlined"
+                        // value={password}
+                        onChange={(event) => {
+                          handleChange(event);
+                        }}
+                        required
+                      />
+                    </Grid>
+                    <Grid item>
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        type="submit"
+                        className={classes.buttonBlock}
+                      >
+                        ورود
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </form>
+              </Grid>
+            </Paper>
+          </Grid>
         </Grid>
-      </div>
-    );
-  }
+      </Grid>
+    </div>
+  );
 }
 export default Login;

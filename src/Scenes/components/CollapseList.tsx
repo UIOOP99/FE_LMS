@@ -1,19 +1,13 @@
-import { Avatar, Collapse, List, ListItem, ListItemIcon, ListItemText, makeStyles, Typography } from '@material-ui/core';
+import { Collapse, ListItem, ListItemIcon, ListItemText, makeStyles } from '@material-ui/core';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import React, { ReactNode, useState } from 'react';
 
-interface ICollapseListItemProps {
-  title: string,
-  Icon?: ReactNode,
-  primaryDesc?: string,
-  secondaryDesc?: string
-}
 
 interface ICollapseListProps {
   listTitle: string,
   ListIcon?: ReactNode,
-  DefaultListItemIcon?: ReactNode,
-  items?: ICollapseListItemProps[]
+  ListComponent: ReactNode,
+  listCount: number,
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -28,24 +22,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const CollapseListItem = ({title, Icon, primaryDesc, secondaryDesc}: ICollapseListItemProps) => {
-  return (
-    <ListItem alignItems="flex-start" button>
-      <ListItemIcon><Avatar>{Icon}</Avatar></ListItemIcon>
-      <ListItemText 
-        primary={title}
-        secondary={
-          <>
-            <Typography variant="body1">{primaryDesc}</Typography>
-            <Typography variant="caption">{secondaryDesc}</Typography>
-          </>
-        }
-      />
-    </ListItem>
-  );
-};
-
-const CollapseList = ({listTitle, ListIcon, DefaultListItemIcon, items}: ICollapseListProps) => {
+const CollapseList = ({listTitle, ListIcon, ListComponent, listCount}: ICollapseListProps) => {
   const classes = useStyles();
   
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -55,26 +32,13 @@ const CollapseList = ({listTitle, ListIcon, DefaultListItemIcon, items}: ICollap
         <ListItemIcon >{ListIcon}</ListItemIcon>
         <ListItemText>
           {listTitle}
-          {
-          items && items.length > 0 &&
-            <div className={classes.countBadge}>{items?.length}</div>
-          }
+          <div className={classes.countBadge}>{listCount}</div>
         </ListItemText>
         {isCollapsed ? <ExpandMore /> : <ExpandLess />}
       </ListItem>
-      {items && 
+      {ListComponent && 
         <Collapse in={!isCollapsed}>
-          <List disablePadding>
-            {items.map(({title, Icon, primaryDesc, secondaryDesc}) => (
-              <CollapseListItem 
-                key={`${title}-${primaryDesc}`}
-                title={title}
-                Icon={Icon || DefaultListItemIcon}
-                primaryDesc={primaryDesc}
-                secondaryDesc={secondaryDesc}
-              />
-            ))}
-          </List>
+          {ListComponent}
         </Collapse>
       }
     </>

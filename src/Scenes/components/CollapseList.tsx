@@ -1,13 +1,13 @@
 import { Collapse, ListItem, ListItemIcon, ListItemText, makeStyles } from '@material-ui/core';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
-import React, { ReactNode, useState } from 'react';
+import React, { ComponentType, ReactNode, useState } from 'react';
 
 
 interface ICollapseListProps {
   listTitle: string,
   ListIcon?: ReactNode,
-  ListComponent: ReactNode,
-  listCount: number,
+  ListComponent: ComponentType,
+  listCount?: number,
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -32,13 +32,13 @@ const CollapseList = ({listTitle, ListIcon, ListComponent, listCount}: ICollapse
         <ListItemIcon >{ListIcon}</ListItemIcon>
         <ListItemText>
           {listTitle}
-          <div className={classes.countBadge}>{listCount}</div>
+          {listCount && <div className={classes.countBadge}>{listCount}</div>}
         </ListItemText>
         {isCollapsed ? <ExpandMore /> : <ExpandLess />}
       </ListItem>
       {ListComponent && 
         <Collapse in={!isCollapsed}>
-          {ListComponent}
+          <ListComponent />
         </Collapse>
       }
     </>

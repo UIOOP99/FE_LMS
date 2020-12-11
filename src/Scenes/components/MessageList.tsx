@@ -15,6 +15,7 @@ const MessageList = ({messages}: {messages: IMessageCardProps[]}) => {
       {
         messages.map(({message, userFullName, avatarUrl, messageDate, attachedFiles, classRoomName, userAnswers}) => (
           <MessageCard
+            key={`${userFullName}-${messageDate}`}
             className={classes.messageItem}
             message={message}
             userFullName={userFullName}

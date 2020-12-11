@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.grey['100'],
     position: 'sticky',
     top: 0,
+    zIndex: theme.zIndex.appBar,
   },
   linkContainer: {
     display: 'flex',

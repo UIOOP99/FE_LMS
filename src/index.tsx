@@ -3,19 +3,18 @@ import { MuiThemeProvider } from "@material-ui/core/styles";
 import * as Theme from "constants/theme";
 import React from "react";
 import ReactDOM from "react-dom";
-import { Router } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import App from "Scenes/App";
 import RTLProvider from "Scenes/components/RTLProvider";
-import { browserHistory } from "services/navigation";
 import "styles/global.css";
 
 const Main = () => (
   <MuiThemeProvider theme={Theme.theme}>
-    <Router history={browserHistory}>
+    <BrowserRouter>
       <RTLProvider>
         <App />
       </RTLProvider>
-    </Router>
+    </BrowserRouter>
   </MuiThemeProvider>
 );
 

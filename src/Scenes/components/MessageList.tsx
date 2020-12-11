@@ -1,0 +1,33 @@
+import { makeStyles } from '@material-ui/core';
+import React from 'react';
+import MessageCard, { IMessageCardProps } from 'Scenes/MainPage/components/MessageCard';
+
+const useStyles = makeStyles((theme) => ({
+  messageItem: {
+    marginBottom: theme.spacing(2),
+  }
+}));
+
+const MessageList = ({messages}: {messages: IMessageCardProps[]}) => {
+  const classes = useStyles();
+  return (
+    <>
+      {
+        messages.map(({message, userFullName, avatarUrl, messageDate, attachedFiles, classRoomName, userAnswers}) => (
+          <MessageCard
+            className={classes.messageItem}
+            message={message}
+            userFullName={userFullName}
+            avatarUrl={avatarUrl}
+            messageDate={messageDate}
+            attachedFiles={attachedFiles}
+            classRoomName={classRoomName}
+            userAnswers={userAnswers}
+          />
+        ))
+      }
+    </>
+  );
+};
+
+export default MessageList;

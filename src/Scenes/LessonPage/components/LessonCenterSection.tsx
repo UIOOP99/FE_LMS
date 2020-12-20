@@ -19,8 +19,8 @@ const Filler = ({ text, height }: {text:string, height: string}) => (
   </Card>
 );
 
-const LessonCenterSection = () => {
-  const {data} = useSWR<IMessageCardProps[]>([lessonUrl, '31'], lessonMessagesFetcher);
+const LessonCenterSection = ({lessonId}: {lessonId: string}) => {
+  const {data} = useSWR<IMessageCardProps[]>([lessonUrl, lessonId], lessonMessagesFetcher);
   const messageCardMocks = data||[];
 
    return (

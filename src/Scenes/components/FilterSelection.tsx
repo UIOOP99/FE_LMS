@@ -1,9 +1,8 @@
 import { Card, Grid, InputAdornment, makeStyles, MenuItem, TextField } from '@material-ui/core';
 import { FilterList } from '@material-ui/icons';
-import { MessageFilters, SearchQueryParams } from 'constants/constants';
+import { MessageFilters } from 'constants/constants';
 import React from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
-import useMessageFilter from 'services/hooks/useMessageFilter';
+import useMessageFilter, { MessageFilterQuery } from 'services/hooks/useMessageFilter';
 import Spacer from './Spacer';
 
 const useStyles = makeStyles((theme) => ({
@@ -19,21 +18,13 @@ const useStyles = makeStyles((theme) => ({
 
 const FilterSelection = () => {
   const classes = useStyles();
-  const location = useLocation();
-  const history = useHistory();
 
-  const {title: currentFilterTitle, query: currentFilterQuery} = useMessageFilter();
+  const [filter, setFilter] = useMessageFilter();
   const allFilters = Object.values(MessageFilters);
 
   // fix history issue
-  const handleFilterChange = (filter: string) => {
-    const oldQuery = `${SearchQueryParams.messageFilter}=${currentFilterQuery}`;
-    const newQuery = `${SearchQueryParams.messageFilter}=${filter}`;
-    const oldSearch = location.search; 
-    const newSearch = oldSearch.includes(SearchQueryParams.messageFilter) 
-    ? oldSearch.replace(oldQuery, newQuery)
-    : `${newQuery}${oldSearch?`&${oldSearch}`:''}`;
-    history.replace({search: newSearch});
+  const handleFilterChange = (filterQuery: MessageFilterQuery) => {
+    setFilter(filterQuery);
   };
 
   return (
@@ -50,7 +41,7 @@ const FilterSelection = () => {
       <Spacer orientation="v" spacing={2}/>
       <Grid item xs={3}>
         <TextField 
-          value={currentFilterTitle}
+          value={filter.title}
           size="small" 
           variant="outlined" 
           select 

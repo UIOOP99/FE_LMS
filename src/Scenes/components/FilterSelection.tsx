@@ -27,14 +27,18 @@ const FilterSelection = () => {
     setFilter(filterQuery);
   };
 
+  const lessonPageTitle = 'فلان درس';
+
+  const currentTime = '۲۰:۳۰:۳۲';
+
   return (
     <Grid container>
       <Grid item xs>
         <Card className={classes.card} elevation={0}>
           <Grid container>
-            <Grid item>درس</Grid>
+            <Grid item>{lessonPageTitle}</Grid>
             <Grid item xs />
-            <Grid item>۲۰:۳۰:۳۲</Grid>
+            <Grid item>{currentTime}</Grid>
           </Grid>
         </Card>
       </Grid>

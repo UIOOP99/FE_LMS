@@ -3,7 +3,7 @@ import { MuiThemeProvider } from "@material-ui/core/styles";
 import * as Theme from "constants/theme";
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Router } from "react-router-dom";
+import { Route, Router } from "react-router-dom";
 import App from "Scenes/App";
 import RTLProvider from "Scenes/components/RTLProvider";
 import { browserHistory } from "services/navigation";
@@ -12,14 +12,13 @@ import { QueryParamProvider } from "use-query-params";
 
 const Main = () => (
   <MuiThemeProvider theme={Theme.theme}>
-    {/* <Router history={browserHistory}> */}
-    <BrowserRouter>
+    <Router history={browserHistory}>
       <QueryParamProvider ReactRouterRoute={Route}>
         <RTLProvider>
           <App />
         </RTLProvider>
       </QueryParamProvider>
-    </BrowserRouter>
+    </Router>
   </MuiThemeProvider>
 );
 

@@ -10,6 +10,8 @@ import { browserHistory } from "services/navigation";
 import "styles/global.css";
 import { QueryParamProvider } from "use-query-params";
 
+import 'services/mirage';
+
 const Main = () => (
   <MuiThemeProvider theme={Theme.theme}>
     <Router history={browserHistory}>

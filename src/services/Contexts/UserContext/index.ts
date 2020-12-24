@@ -6,7 +6,7 @@ export const initial: IUserState = {
   idNumber: "963613009",
   fullName: "امیررضا اسماعیلی",
   isAuth: true,
-  role: "student",
+  role: "professor",
 };
 
 export const userContext = createContext<IUserState>(initial);

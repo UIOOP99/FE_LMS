@@ -2,7 +2,7 @@ import React, { lazy } from "react";
 import { Route } from "react-router-dom";
 import { TPermissions } from "services/role/model";
 import PrivateRoute from "./components/PrivateRoute";
-import LessonPage from "./LessonPage";
+const LessonPage = lazy(() => import("./LessonPage"));
 const TestPage = lazy(() => import("./TestPage"));
 const MainPage = lazy(() => import("./MainPage"));
 const LoginPage = lazy(() => import("./LoginPage"));

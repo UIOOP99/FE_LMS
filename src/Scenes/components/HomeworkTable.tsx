@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     }
 });
 
-const HomeworkTable = () => {
+const HomeworkTable = (lessonID: number, homeworkID: number) => {
 
     function createData(name: string, studentNumber:number, fileUploaded: string, date: string) {
         return { name, studentNumber, fileUploaded, date };

@@ -1,6 +1,7 @@
 import React, { lazy } from "react";
 import { Route } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
+import LessonPage from "./LessonPage";
 const TestPage = lazy(() => import("./TestPage"));
 const MainPage = lazy(() => import("./MainPage"));
 const LoginPage = lazy(() => import("./LoginPage"));
@@ -20,6 +21,10 @@ const routes: IRoute[] = [
     path: "/",
     component: MainPage,
     exact: true,
+  },
+  {
+    path: "/lesson",
+    component: LessonPage,
   },
   {
     path: "/test",

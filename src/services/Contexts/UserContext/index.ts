@@ -1,14 +1,13 @@
 import { createContext, Dispatch, useContext } from "react";
 import { AppActions } from "../AppActions";
 import { IUserState } from "./models";
-const initial: IUserState = {
+export const initial: IUserState = {
   username: "amirreza",
-  idNumber: '963613009',
-  fullName: 'امیررضا اسماعیلی',
+  idNumber: "963613009",
+  fullName: "امیررضا اسماعیلی",
   isAuth: true,
-  rule: "admin",
+  role: "professor",
 };
-
 
 export const userContext = createContext<IUserState>(initial);
 export const userDispatchContext = createContext<Dispatch<AppActions>>(

@@ -1,19 +1,28 @@
-import { Card, Grid, InputAdornment, makeStyles, MenuItem, TextField } from '@material-ui/core';
-import { FilterList } from '@material-ui/icons';
-import { MessageFilters } from 'constants/constants';
-import React from 'react';
-import useMessageFilter, { MessageFilterQuery } from 'services/hooks/useMessageFilter';
-import Spacer from './Spacer';
+import {
+  Card,
+  Grid,
+  InputAdornment,
+  makeStyles,
+  MenuItem,
+  TextField,
+} from "@material-ui/core";
+import { FilterList } from "@material-ui/icons";
+import { MessageFilters } from "constants/constants";
+import React from "react";
+import useMessageFilter, {
+  MessageFilterQuery,
+} from "services/hooks/useMessageFilter";
+import Spacer from "./Spacer";
 
 const useStyles = makeStyles((theme) => ({
   card: {
     backgroundColor: theme.palette.grey[100],
     paddingRight: theme.spacing(2),
     paddingLeft: theme.spacing(2),
-    height: '100%',
-    display: 'flex',
-    alignItems: 'center',
-  }
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+  },
 }));
 
 const FilterSelection = () => {
@@ -27,9 +36,9 @@ const FilterSelection = () => {
     setFilter(filterQuery);
   };
 
-  const lessonPageTitle = 'فلان درس';
+  const lessonPageTitle = "فلان درس";
 
-  const currentTime = '۲۰:۳۰:۳۲';
+  const currentTime = "۲۰:۳۰:۳۲";
 
   return (
     <Grid container>
@@ -42,24 +51,26 @@ const FilterSelection = () => {
           </Grid>
         </Card>
       </Grid>
-      <Spacer orientation="v" spacing={2}/>
+      <Spacer orientation="v" spacing={2} />
       <Grid item xs={3}>
-        <TextField 
+        <TextField
           value={filter.title}
-          size="small" 
-          variant="outlined" 
-          select 
+          size="small"
+          variant="outlined"
+          select
           fullWidth
-          InputProps={{startAdornment: (
-            <InputAdornment position="start">
-              <FilterList />
-            </InputAdornment>
-          )}}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <FilterList />
+              </InputAdornment>
+            ),
+          }}
         >
-          {allFilters.map(({title: filterTitle, query: filterQuery}) => (
-            <MenuItem 
-              key={filterQuery} 
-              value={filterTitle} 
+          {allFilters.map(({ title: filterTitle, query: filterQuery }) => (
+            <MenuItem
+              key={filterQuery}
+              value={filterTitle}
               onClick={() => handleFilterChange(filterQuery)}
             >
               {filterTitle}

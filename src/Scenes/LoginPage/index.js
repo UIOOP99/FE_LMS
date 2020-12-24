@@ -11,6 +11,7 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import Axios from "axios";
+import BannerNav from "Scenes/components/BannerNav";
 
 let useStyles = makeStyles((theme) => ({
   loginForm: {
@@ -59,18 +60,7 @@ function Login() {
 
   return (
     <div>
-      <AppBar position="static" alignitems="center" color="primary">
-        <Toolbar>
-          <Grid container justify="center" wrap="wrap">
-            <Grid item>
-              <Typography variant="h6">
-                سامانه مدیریت یادگیری دانشگاه اصفهان
-              </Typography>
-            </Grid>
-          </Grid>
-        </Toolbar>
-      </AppBar>
-
+      <BannerNav />
       <Grid container justify="center" direction="row">
         <Grid item>
           <Grid

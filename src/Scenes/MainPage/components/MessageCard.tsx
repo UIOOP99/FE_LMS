@@ -29,7 +29,8 @@ export interface IMessageCardProps {
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
+    backgroundColor: theme.palette.grey[100],
   },
   headerContainer: {
     marginBottom :theme.spacing(1),
@@ -55,7 +56,8 @@ const useStyles = makeStyles((theme) => ({
 
 const MessageCard = ({
     userFullName, avatarUrl, classRoomName, message, attachedFiles, userAnswers, messageDate,
-  }: IMessageCardProps) => {
+    className,
+  }: {className?: string} & IMessageCardProps) => {
   const classes = useStyles();
 
   const {rule} = useUserState();
@@ -165,7 +167,7 @@ const MessageCard = ({
   };
 
   return (
-    <Card className={classes.card}>
+    <Card className={`${className} ${classes.card}`} elevation={0}>
       <Grid container>
         {renderHeader()}
         {renderContent()}

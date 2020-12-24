@@ -4,17 +4,14 @@ import {
   TextField,
   Grid,
   Paper,
-  AppBar,
   Typography,
-  Toolbar,
-  Link,
   makeStyles,
 } from "@material-ui/core";
 
 import { axiosInstance } from "services/axios/axios";
 import { createTokenObj, LSService } from "services/LocalStorage/localStorage";
-import { EUserActionTypes } from "services/Contexts/UserContext/models";
 import { useHistory } from "react-router-dom";
+import BannerNav from "../components/BannerNav"
 
 let useStyles = makeStyles((theme) => ({
   loginForm: {
@@ -55,8 +52,8 @@ function Login() {
         password : password
     }
     axiosInstance.post("/login",data).then(res =>{
-        // console.log(res.token);
         LSService.setToken(createTokenObj(res.refresh.token, res.access.token))
+        history.push("/")
 
     })
     .catch(err =>{
@@ -69,18 +66,7 @@ function Login() {
 
   return (
     <div>
-      <AppBar position="static" alignitems="center" color="primary">
-        <Toolbar>
-          <Grid container justify="center" wrap="wrap">
-            <Grid item>
-              <Typography variant="h6">
-                سامانه مدیریت یادگیری دانشگاه اصفهان
-              </Typography>
-            </Grid>
-          </Grid>
-        </Toolbar>
-      </AppBar>
-
+      <BannerNav />
       <Grid container justify="center" direction="row">
         <Grid item>
           <Grid

@@ -33,14 +33,12 @@ export const LSService: ILSService = {
   setToken: (tokenObj: ITokens) => {
     localStorage.setItem(accessTokenKey, tokenObj.access);
     localStorage.setItem(refreshTokenKey, tokenObj.refresh);
-    localStorage.setItem("user", "کاربر محترم");
   },
   getAccessToken: () => localStorage.getItem(accessTokenKey) as string,
   getRefreshToken: () => localStorage.getItem(refreshTokenKey) as string,
   clearToken: () => {
     localStorage.removeItem(accessTokenKey);
     localStorage.removeItem(refreshTokenKey);
-    localStorage.removeItem("user");
   },
   // setCart: (cartItems: IInitialProduct[]) => {
   //   localStorage.setItem(cartItemsKey, JSON.stringify(cartItems));

@@ -1,5 +1,6 @@
 import React, { lazy } from "react";
 import { Route } from "react-router-dom";
+import { TPermissions } from "services/role/model";
 import PrivateRoute from "./components/PrivateRoute";
 import LessonPage from "./LessonPage";
 const TestPage = lazy(() => import("./TestPage"));
@@ -13,7 +14,7 @@ export interface IRoute {
   routes?: IRoute[];
   private?: boolean;
   notHaveBaseLayout?: boolean;
-  //   toHavePermissions?: TPermissions[];
+  toHavePermissions?: TPermissions[];
 }
 
 const routes: IRoute[] = [

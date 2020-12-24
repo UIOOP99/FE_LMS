@@ -1,23 +1,12 @@
 import React, { useReducer } from "react";
+import { initial, userContext, userDispatchContext } from ".";
 import { userReducer } from "./UserReducer";
-import { EUserActionTypes, IUserState } from "./models";
-import { userContext, userDispatchContext, useUserDispatch } from ".";
-import { axiosInstance } from "services/axios/axios";
-import { LSService } from "services/LocalStorage/localStorage";
-
-const initial: IUserState = {
-  username: "",
-  isAuth: false,
-  rule: "company",
-};
-
-
 
 const UserProvider: React.FC = ({ children }) => {
   const [user, dispatchUser] = useReducer(userReducer, initial);
-  
+
   //fetch user data
-  // develop use effect 
+  // develop use effect
   return (
     <userContext.Provider value={user}>
       <userDispatchContext.Provider value={dispatchUser}>

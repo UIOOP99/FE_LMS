@@ -5,6 +5,7 @@ import MessageList from 'Scenes/components/MessageList';
 import Spacer from 'Scenes/components/Spacer';
 import { IMessageCardProps } from 'Scenes/MainPage/components/MessageCard';
 import { classroomInfoFetcher, classroomInfoKey, lessonMessagesFetcher, lessonMessagesKey } from 'services/api/lesson';
+import useMessageFilter from 'services/hooks/useMessageFilter';
 import useSWR from 'swr';
 
 const Filler = ({ text, height }: {text:string, height: string}) => (
@@ -20,7 +21,8 @@ const Filler = ({ text, height }: {text:string, height: string}) => (
 );
 
 const LessonCenterSection = ({lessonId}: {lessonId: string}) => {
-  const { data: messages } = useSWR<IMessageCardProps[]>([lessonMessagesKey, lessonId], lessonMessagesFetcher);
+  const [filter] = useMessageFilter();
+  const { data: messages } = useSWR<IMessageCardProps[]>([lessonMessagesKey, lessonId, filter.query], lessonMessagesFetcher);
   const { data: classroomInfo } = useSWR([classroomInfoKey, lessonId], classroomInfoFetcher);
   const messageCardMocks = messages ||[];
 

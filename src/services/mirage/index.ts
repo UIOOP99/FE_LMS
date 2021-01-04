@@ -30,7 +30,11 @@ createServer({
     this.get('api/lesson/:id/classroom');
     this.get('api/lesson/:lessonId/messages', (schema: any, req) => {
       const {lessonId} = req.params;
+      const {filter} = req.queryParams;
       const {name: lessonName} = schema.classrooms.find(lessonId);
+      if (filter) {
+        return schema.messages.where({classRoomName: lessonName, messageType: filter});
+      }
       return schema.messages.where({classRoomName: lessonName});
     });
     this.get('api/lesson/:lessonId/members', (schema: any, req) => {

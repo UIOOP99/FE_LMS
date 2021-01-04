@@ -9,8 +9,12 @@ export const classroomInfoFetcher = async (key: string, lessonId: any) => {
 };
 
 export const lessonMessagesKey = '/lesson-messages';
-export const lessonMessagesFetcher = async (key: string, lessonId: any) => {
-  const {data} = await axiosInstance.get(`${lessonBaseUrl}/${lessonId}/messages`);
+export const lessonMessagesFetcher = async (key: string, lessonId: any, lessonFilter: any) => {
+  const {data} = await axiosInstance.get(`${lessonBaseUrl}/${lessonId}/messages`, {
+    params: {
+      filter: lessonFilter,
+    }
+  });
   return data.messages;
 };
 

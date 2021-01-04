@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const FilterSelection = () => {
+const FilterSelection : React.FC<{ title: string }> = ({ title }) => {
   const classes = useStyles();
 
   const [filter, setFilter] = useMessageFilter();
@@ -27,8 +27,6 @@ const FilterSelection = () => {
     setFilter(filterQuery);
   };
 
-  const lessonPageTitle = 'فلان درس';
-
   const currentTime = '۲۰:۳۰:۳۲';
 
   return (
@@ -36,7 +34,7 @@ const FilterSelection = () => {
       <Grid item xs>
         <Card className={classes.card} elevation={0}>
           <Grid container>
-            <Grid item>{lessonPageTitle}</Grid>
+            <Grid item>{title}</Grid>
             <Grid item xs />
             <Grid item>{currentTime}</Grid>
           </Grid>

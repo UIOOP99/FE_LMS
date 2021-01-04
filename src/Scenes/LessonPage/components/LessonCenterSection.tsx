@@ -4,7 +4,7 @@ import FilterSelection from 'Scenes/components/FilterSelection';
 import MessageList from 'Scenes/components/MessageList';
 import Spacer from 'Scenes/components/Spacer';
 import { IMessageCardProps } from 'Scenes/MainPage/components/MessageCard';
-import { lessonMessagesFetcher, lessonUrl } from 'services/api/lesson';
+import { classroomInfoFetcher, classroomInfoKey, lessonMessagesFetcher, lessonMessagesKey } from 'services/api/lesson';
 import useSWR from 'swr';
 
 const Filler = ({ text, height }: {text:string, height: string}) => (
@@ -20,14 +20,15 @@ const Filler = ({ text, height }: {text:string, height: string}) => (
 );
 
 const LessonCenterSection = ({lessonId}: {lessonId: string}) => {
-  const {data} = useSWR<IMessageCardProps[]>([lessonUrl, lessonId], lessonMessagesFetcher);
-  const messageCardMocks = data||[];
+  const { data: messages } = useSWR<IMessageCardProps[]>([lessonMessagesKey, lessonId], lessonMessagesFetcher);
+  const { data: classroomInfo } = useSWR([classroomInfoKey, lessonId], classroomInfoFetcher);
+  const messageCardMocks = messages ||[];
 
    return (
     <>
       <Filler height="100px" text="insert create post component here"/>
       <Spacer spacing={2} orientation="h"/>
-      <FilterSelection />
+      <FilterSelection title={classroomInfo?.name}/>
       <Spacer spacing={2} orientation="h"/>
       <MessageList messages={messageCardMocks}/>
      </>

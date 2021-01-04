@@ -25,6 +25,7 @@ createServer({
 
   routes() {
     this.get('api/feed/messages');
+    this.get('api/lesson/:id/classroom/');
     this.get('api/lesson/:lessonId/messages', (schema: any, req) => {
       const {lessonId} = req.params;
       const {name: lessonName} = schema.classrooms.find(lessonId);

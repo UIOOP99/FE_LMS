@@ -3,25 +3,25 @@ import React from 'react';
 import CollapseList from 'Scenes/components/CollapseList';
 import { People } from '@material-ui/icons';
 import UserCard from 'Scenes/MainPage/components/UserCard';
-
-const members = [
-  {
-    userFullName: "امیررضا اسماعیلی",
-    idNumber: "963613009",
-  },
-  {
-    userFullName: "امیررضا اسماعیلی",
-    idNumber: "963613007",
-  },
-];
+import { useParams } from 'react-router-dom';
+import useSWR from 'swr';
+import { lessonMembersFetcher, lessonMembersKey } from 'services/api/lesson';
 
 const LessonRightSidebar = () => {
+  const { id: lessonId } = useParams<{id: string}>();
+  const { data } = useSWR([lessonMembersKey, lessonId], lessonMembersFetcher);
+  const lessonMembers = data || [];
+
+  
   const MembersList = () => (
     <List disablePadding>
-      {members.map(({userFullName, idNumber}) => (
+      {lessonMembers.map((
+        {fullName, avatarUrl, idNumber}: {fullName: string, avatarUrl: string, idNumber: string}
+        ) => (
         <UserCard 
           key={idNumber}
-          userFullName={userFullName}
+          userFullName={fullName}
+          avatarUrl={avatarUrl}
           idNumber={idNumber}
         />
       ))}
@@ -35,7 +35,7 @@ const LessonRightSidebar = () => {
           listTitle="اعضا" 
           ListIcon={<People />}
           ListComponent={MembersList}
-          listCount={members.length}
+          listCount={lessonMembers.length}
         />
       </List>
     </div>

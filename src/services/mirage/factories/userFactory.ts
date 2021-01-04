@@ -1,3 +1,4 @@
+import { random } from "lodash";
 import { Factory } from "miragejs";
 
 export default Factory.extend({
@@ -9,6 +10,7 @@ export default Factory.extend({
     "سجاد یزدان پرست",
   ][i % 5]),
   avatarUrl() {
-    return `https://i.pravatar.cc/150?u=${this.fullName}`;
-  }
+    return `https://i.pravatar.cc/150?u=${this.idNumber}`;
+  },
+  idNumber: () => `${random(111111,999999)}`,
 });

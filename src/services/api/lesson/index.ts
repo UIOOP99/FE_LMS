@@ -4,5 +4,5 @@ export const lessonUrl = '/lesson';
 
 export const lessonMessagesFetcher = async (key: string, lessonId: any) => {
   const {data} = await axiosInstance.get(`${lessonUrl}/${lessonId}/messages`);
-  return data;
+  return data.messages;
 };

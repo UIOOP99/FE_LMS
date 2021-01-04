@@ -34,7 +34,7 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": " yarn tail:build && react-scripts start",
+    "start": "react-scripts start",
     "tail:build": "npx tailwindcss build ./src/styles/tailwind.src.css -o ./src/styles/tailbuild.css",
     "build": "react-scripts build",
     "test": "react-scripts test",

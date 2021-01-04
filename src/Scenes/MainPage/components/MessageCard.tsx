@@ -60,10 +60,10 @@ const MessageCard = ({
   }: {className?: string} & IMessageCardProps) => {
   const classes = useStyles();
 
-  const {rule} = useUserState();
+  const {role} = useUserState();
   const [moreOptionsMenuAnchor, setMoreOptionsMenuAnchor] = useState<HTMLElement | null>(null);
 
-  const showAnswersButton = rule === 'admin';
+  const showAnswersButton = role === 'professor';
 
   const handleUserProfileClick = () => {
     return;

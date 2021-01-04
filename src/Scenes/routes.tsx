@@ -1,9 +1,11 @@
 import React, { lazy } from "react";
 import { Route } from "react-router-dom";
+import { TPermissions } from "services/role/model";
 import PrivateRoute from "./components/PrivateRoute";
-import LessonPage from "./LessonPage";
+const LessonPage = lazy(() => import("./LessonPage"));
 const TestPage = lazy(() => import("./TestPage"));
 const MainPage = lazy(() => import("./MainPage"));
+const LoginPage = lazy(() => import("./LoginPage"));
 
 export interface IRoute {
   path?: string | string[];
@@ -12,7 +14,7 @@ export interface IRoute {
   routes?: IRoute[];
   private?: boolean;
   notHaveBaseLayout?: boolean;
-  //   toHavePermissions?: TPermissions[];
+  toHavePermissions?: TPermissions[];
 }
 
 const routes: IRoute[] = [
@@ -28,6 +30,10 @@ const routes: IRoute[] = [
   {
     path: "/test",
     component: TestPage,
+  },
+  {
+    path: "/login",
+    component: LoginPage,
   },
 ];
 

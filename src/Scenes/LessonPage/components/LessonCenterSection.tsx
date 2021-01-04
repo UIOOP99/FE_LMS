@@ -1,5 +1,6 @@
 import { Card } from '@material-ui/core';
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import FilterSelection from 'Scenes/components/FilterSelection';
 import MessageList from 'Scenes/components/MessageList';
 import Spacer from 'Scenes/components/Spacer';
@@ -20,7 +21,8 @@ const Filler = ({ text, height }: {text:string, height: string}) => (
   </Card>
 );
 
-const LessonCenterSection = ({lessonId}: {lessonId: string}) => {
+const LessonCenterSection = () => {
+  const { id: lessonId } = useParams<{id: string}>();
   const [filter] = useMessageFilter();
   const { data: messages } = useSWR<IMessageCardProps[]>([lessonMessagesKey, lessonId, filter.query], lessonMessagesFetcher);
   const { data: classroomInfo } = useSWR([classroomInfoKey, lessonId], classroomInfoFetcher);

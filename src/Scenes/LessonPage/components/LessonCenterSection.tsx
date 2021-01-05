@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import FilterSelection from 'Scenes/components/FilterSelection';
 import MessageList from 'Scenes/components/MessageList';
 import Spacer from 'Scenes/components/Spacer';
-import { IMessageCardProps } from 'Scenes/MainPage/components/MessageCard';
+import { IMessageCardProps } from 'Scenes/components/MessageCard';
 import { classroomInfoFetcher, classroomInfoKey, lessonMessagesFetcher, lessonMessagesKey } from 'services/api/lesson';
 import useMessageFilter from 'services/hooks/useMessageFilter';
 import useSWR from 'swr';

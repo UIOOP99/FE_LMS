@@ -9,7 +9,7 @@ import { Home, Settings } from "@material-ui/icons";
 import React, { ReactElement, SyntheticEvent, useState } from "react";
 import BannerNav from "Scenes/components/BannerNav";
 import { redirect } from "services/navigation";
-import ProfilePopover from "./ProfilePopover";
+import ProfilePopover from "../../components/ProfilePopover";
 
 interface ILink {
   title: string;

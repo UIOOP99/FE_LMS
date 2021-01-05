@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 import React from 'react';
-import MessageCard, { IMessageCardProps } from 'Scenes/MainPage/components/MessageCard';
+import MessageCard, { IMessageCardProps } from 'Scenes/components/MessageCard';
 
 const useStyles = makeStyles((theme) => ({
   messageItem: {

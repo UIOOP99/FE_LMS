@@ -6,7 +6,7 @@ import Spacer from 'Scenes/components/Spacer';
 import { timelineMessagesFetcher, timelineMessagesKey } from 'services/api/main';
 import useMessageFilter from 'services/hooks/useMessageFilter';
 import useSWR from 'swr';
-import { IMessageCardProps } from './MessageCard';
+import { IMessageCardProps } from '../../components/MessageCard';
 
 const Filler = ({ text, height }: {text:string, height: string}) => (
   <Card 

@@ -2,7 +2,7 @@ import { List } from '@material-ui/core';
 import React from 'react';
 import CollapseList from 'Scenes/components/CollapseList';
 import { People } from '@material-ui/icons';
-import UserCard from 'Scenes/MainPage/components/UserCard';
+import UserCard from 'Scenes/components/UserCard';
 import { useParams } from 'react-router-dom';
 import useSWR from 'swr';
 import { lessonMembersFetcher, lessonMembersKey } from 'services/api/lesson';

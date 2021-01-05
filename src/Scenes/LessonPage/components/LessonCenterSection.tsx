@@ -35,7 +35,7 @@ const LessonCenterSection = () => {
       <FilterSelection title={classroomInfo?.name}/>
       <Spacer spacing={2} orientation="h"/>
       <MessageList messages={messageCardMocks}/>
-     </>
+    </>
   );
 };
 

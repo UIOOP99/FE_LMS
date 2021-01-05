@@ -26,7 +26,13 @@ createServer({
   seeds: scenarios.basic,
 
   routes() {
-    this.get('api/feed/messages');
+    this.get('api/home/messages', (schema: any, req) => {
+      const {filter} = req.queryParams;
+      if (filter) {
+        return schema.messages.where({messageType: filter});
+      }
+      return schema.messages.all();
+    });
     this.get('api/lesson/:id/classroom');
     this.get('api/lesson/:lessonId/messages', (schema: any, req) => {
       const {lessonId} = req.params;

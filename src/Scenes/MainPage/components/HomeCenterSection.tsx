@@ -2,6 +2,7 @@ import { Card } from '@material-ui/core';
 import React from 'react';
 import FilterSelection from 'Scenes/components/FilterSelection';
 import MessageList from 'Scenes/components/MessageList';
+import ScrollToTopOnMount from 'Scenes/components/ScrollToTopOnMount';
 import Spacer from 'Scenes/components/Spacer';
 import { timelineMessagesFetcher, timelineMessagesKey } from 'services/api/main';
 import useMessageFilter from 'services/hooks/useMessageFilter';
@@ -27,6 +28,7 @@ const HomeCenterSection = () => {
 
   return (
     <>
+      <ScrollToTopOnMount />
       <Filler height="100px" text="insert create post component here"/>
       <Spacer spacing={2} orientation="h"/>
       <FilterSelection title="تایم‌لاین"/>

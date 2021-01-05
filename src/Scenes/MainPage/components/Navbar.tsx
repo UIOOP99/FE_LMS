@@ -7,8 +7,8 @@ import {
 } from "@material-ui/core";
 import { Home, Settings } from "@material-ui/icons";
 import React, { ReactElement, SyntheticEvent, useState } from "react";
+import { useHistory } from "react-router-dom";
 import BannerNav from "Scenes/components/BannerNav";
-import { redirect } from "services/navigation";
 import ProfilePopover from "../../components/ProfilePopover";
 
 interface ILink {
@@ -66,12 +66,14 @@ const navbarLinks: ILink[] = [
 const Navbar = () => {
   const classes = useStyles();
 
+  const history = useHistory();
+
   const [
     profilePopoverAnchor,
     setProfilePopoverAnchor,
   ] = useState<HTMLElement | null>(null);
 
-  const handleNavigateToLink = (path: string) => redirect(path);
+  const handleNavigateToLink = (path: string) => history.push('/');
 
   const handleSettingClick = () => {
     return;

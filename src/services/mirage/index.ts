@@ -1,4 +1,4 @@
-import {belongsTo, createServer, hasMany, Model} from 'miragejs';
+import {belongsTo, createServer, hasMany, Model, Serializer} from 'miragejs';
 import scenarios from './scenarios';
 import messageFactory from './factories/messageFactory';
 import userFactory from './factories/userFactory';
@@ -12,8 +12,8 @@ createServer({
       members: hasMany('user')
     }),
     message: Model.extend({
-      user: belongsTo(),
-      classroom: belongsTo(),
+      user: belongsTo('user'),
+      classroom: belongsTo('classroom'),
     }),
   }, 
 
@@ -21,6 +21,12 @@ createServer({
     user: userFactory,
     classroom: classroomFactory,
     message: messageFactory,
+  },
+
+  serializers: {
+    message: Serializer.extend({
+      include: ['user', 'classroom']
+    })
   },
 
   seeds: scenarios.basic,

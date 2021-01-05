@@ -13,7 +13,9 @@ const MessageList = ({messages}: {messages: IMessageCardProps[]}) => {
   return (
     <>
       {
-        messages.map(({message, userFullName, avatarUrl, messageDate, attachedFiles, classRoomName, userAnswers}) => (
+        messages.map(({message, userFullName, avatarUrl,
+           messageDate, attachedFiles, classRoomName, userAnswers,
+            user, classroom}) => (
           <MessageCard
             key={`${userFullName}-${messageDate}`}
             className={classes.messageItem}
@@ -24,6 +26,8 @@ const MessageList = ({messages}: {messages: IMessageCardProps[]}) => {
             attachedFiles={attachedFiles}
             classRoomName={classRoomName}
             userAnswers={userAnswers}
+            user={user}
+            classroom={classroom}
           />
         ))
       }

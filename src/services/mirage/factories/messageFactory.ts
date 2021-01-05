@@ -1,5 +1,5 @@
 import { random, range, sample } from "lodash";
-import { Factory } from "miragejs";
+import { Factory, Server } from "miragejs";
 
 export default Factory.extend({
   userFullName: () => sample([
@@ -37,10 +37,10 @@ export default Factory.extend({
        answer: `جواب سوال ${i}`
     }));
   },
-  // afterCreate(message: any, server: Server) {
-  //   message.update({
-  //     user: message.user || server.create('user'),
-  //     classroom: message.classroom || server.create('classroom'),
-  //   });
-  // }
+  afterCreate(message: any, server: Server) {
+    message.update({
+      user: server.create('user'),
+      classroom: message.classroom || server.create('classroom'),
+    });
+  }
 });

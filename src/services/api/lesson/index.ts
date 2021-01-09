@@ -23,3 +23,9 @@ export const lessonMembersFetcher = async (key: string, lessonId: any) => {
   const {data} = await axiosInstance.get(`${lessonBaseUrl}/${lessonId}/members`);
   return data.users;
 };
+
+export const lessonExamsKey = '/lesson-exams';
+export const lessonExamsFetcher = async (key: string, lessonId: any) => {
+  const {data} = await axiosInstance.get(`${lessonBaseUrl}/${lessonId}/exams`);
+  return data.exams;
+};

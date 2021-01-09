@@ -3,6 +3,7 @@ import scenarios from './scenarios';
 import messageFactory from './factories/messageFactory';
 import userFactory from './factories/userFactory';
 import classroomFactory from './factories/classroomFactory';
+import examFactory from './factories/examFactory';
 
 
 createServer({
@@ -15,12 +16,16 @@ createServer({
       user: belongsTo('user'),
       classroom: belongsTo('classroom'),
     }),
+    exam: Model.extend({
+      classroom: belongsTo('classroom'),
+    }),
   }, 
 
   factories: {
     user: userFactory,
     classroom: classroomFactory,
     message: messageFactory,
+    exam: examFactory,
   },
 
   serializers: {
@@ -53,6 +58,13 @@ createServer({
       const {lessonId} = req.params;
       const {members} = schema.classrooms.find(lessonId);
       return members;
+    });
+    this.get('api/lesson/:lessonId/exams', (schema: any, req) => {
+      const {lessonId} = req.params;
+      const exams = schema.exams.where({classroomId: lessonId});
+      console.log(lessonId);
+      
+      return exams;
     });
   }
 });

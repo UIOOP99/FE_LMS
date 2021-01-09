@@ -3,7 +3,7 @@ import { MuiThemeProvider } from "@material-ui/core/styles";
 import * as Theme from "constants/theme";
 import React from "react";
 import ReactDOM from "react-dom";
-import { Route, Router } from "react-router-dom";
+import { Route, BrowserRouter as Router } from "react-router-dom";
 import App from "Scenes/App";
 import RTLProvider from "Scenes/components/RTLProvider";
 import { browserHistory } from "services/navigation";
@@ -14,7 +14,8 @@ import 'services/mirage';
 
 const Main = () => (
   <MuiThemeProvider theme={Theme.theme}>
-    <Router history={browserHistory}>
+    {/* <Router history={browserHistory}> */}
+    <Router >
       <QueryParamProvider ReactRouterRoute={Route}>
         <RTLProvider>
           <App />

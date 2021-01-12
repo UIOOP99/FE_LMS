@@ -4,14 +4,14 @@ import {
   TextField,
   Grid,
   Paper,
-  AppBar,
   Typography,
-  Toolbar,
-  Link,
   makeStyles,
 } from "@material-ui/core";
-import Axios from "axios";
-import BannerNav from "Scenes/components/BannerNav";
+
+import { axiosInstance } from "services/axios/axios";
+import { createTokenObj, LSService } from "services/LocalStorage/localStorage";
+import { useHistory } from "react-router-dom";
+import BannerNav from "../components/BannerNav"
 
 let useStyles = makeStyles((theme) => ({
   loginForm: {
@@ -40,22 +40,28 @@ function Login() {
     else password = event.target.value;
   };
 
+  let history = useHistory()
   const handleSubmit = (event) => {
     event.preventDefault();
-    const url = "";
+   
     console.log(username);
     console.log(password);
 
-    // const data = {
-    //     username : username ,
-    //     password : password
-    // }
-    // Axios.post(url,data).then(res =>{
-    //     console.log(res.token);
-    // })
-    // .catch(err =>{
-    //     console.log(err)
-    // })
+    const data = {
+        username : username ,
+        password : password
+    }
+    axiosInstance.post("/login",data).then(res =>{
+        LSService.setToken(createTokenObj(res.refresh.token, res.access.token))
+        history.push("/")
+
+    })
+    .catch(err =>{
+        alert(err)
+        console.log(err)
+    })
+
+  
   };
 
   return (

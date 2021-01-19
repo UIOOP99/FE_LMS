@@ -1,6 +1,13 @@
-import { Card, Grid } from '@material-ui/core';
+import { Card } from '@material-ui/core';
 import React from 'react';
+import FilterSelection from 'Scenes/components/FilterSelection';
+import MessageList from 'Scenes/components/MessageList';
+import ScrollToTopOnMount from 'Scenes/components/ScrollToTopOnMount';
 import Spacer from 'Scenes/components/Spacer';
+import { timelineMessagesFetcher, timelineMessagesKey } from 'services/api/main';
+import useMessageFilter from 'services/hooks/useMessageFilter';
+import useSWR from 'swr';
+import { IMessageCardProps } from '../../components/MessageCard';
 
 const Filler = ({ text, height }: {text:string, height: string}) => (
   <Card 
@@ -15,16 +22,19 @@ const Filler = ({ text, height }: {text:string, height: string}) => (
 );
 
 const HomeCenterSection = () => {
+  const [filter] = useMessageFilter();
+  const { data: messages } = useSWR<IMessageCardProps[]>([timelineMessagesKey, filter.query], timelineMessagesFetcher);
+  const messageCardMocks = messages ||[];
+
   return (
-    <Grid container direction="column" wrap="nowrap">
-       <Grid item>
-         <Filler height="100px" text="insert create post component here"/>
-       </Grid>
-       <Spacer spacing={2} orientation="h"/>
-       <Grid item xs>
-         <Filler height="700px" text="insert filter and message list component here"/>
-       </Grid>
-     </Grid>
+    <>
+      <ScrollToTopOnMount />
+      <Filler height="100px" text="insert create post component here"/>
+      <Spacer spacing={2} orientation="h"/>
+      <FilterSelection title="تایم‌لاین"/>
+      <Spacer spacing={2} orientation="h"/>
+      <MessageList messages={messageCardMocks}/>
+    </>
   );
 };
 

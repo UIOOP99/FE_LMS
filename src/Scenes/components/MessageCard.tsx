@@ -63,10 +63,13 @@ const MessageCard = ({
   }: {className?: string} & IMessageCardProps) => {
   const classes = useStyles();
 
-  const {role} = useUserState();
+  const {role, fullName: myFullName} = useUserState();
   const [moreOptionsMenuAnchor, setMoreOptionsMenuAnchor] = useState<HTMLElement | null>(null);
 
   const showAnswersButton = role === 'professor';
+
+  //TODO: need a more elegant way
+  const isMyOwnMessage = userFullName === myFullName;
 
   const history = useHistory();
 
@@ -86,7 +89,11 @@ const MessageCard = ({
     return;
   };
 
-  const renderHeader = () => {
+  const handleDeleteMessage = () => {
+    return;
+  };
+
+  const renderHeader = (showMoreButton: boolean) => {
     return (
       <Grid className={classes.headerContainer} item xs={12} container spacing={2}>
         <Grid className={classes.avatarContainer} item>
@@ -106,11 +113,14 @@ const MessageCard = ({
             </Typography>
           </Grid>
         </Grid>
-        <Grid className={classes.moreButtonContainer} item>
-          <IconButton onClick={(e) => setMoreOptionsMenuAnchor(e.currentTarget)}>
-            <MoreHoriz />
-          </IconButton>
-        </Grid>
+        {
+          showMoreButton &&
+          <Grid className={classes.moreButtonContainer} item>
+            <IconButton onClick={(e) => setMoreOptionsMenuAnchor(e.currentTarget)}>
+              <MoreHoriz />
+            </IconButton>
+          </Grid>
+        }
       </Grid>
     );
   };
@@ -159,33 +169,27 @@ const MessageCard = ({
     );
   };
 
-  // TODO: render options conditionally
-  const renderDeleteMenuItem = () => {
-    return (
-        <MenuItem>حذف</MenuItem>
-    );
-  };  
-  const renderReportMenuItem = () => {
-    return (
-        <MenuItem>گزارش</MenuItem>
-    );
-  };
+  const MenuItems = [];
+  isMyOwnMessage && MenuItems.push(<MenuItem onClick={handleDeleteMessage}>حذف</MenuItem>);
+  // MenuItems.push(<MenuItem>گزارش</MenuItem>);
 
   return (
     <Card className={`${className} ${classes.card}`} elevation={0}>
       <Grid container>
-        {renderHeader()}
+        {renderHeader(!!MenuItems?.length)}
         {renderContent()}
         {renderFooter()}
       </Grid>
-      <Menu
-        anchorEl={moreOptionsMenuAnchor}
-        open={!!moreOptionsMenuAnchor}
-        onClose={() => setMoreOptionsMenuAnchor(null)}
-      >
-        {renderDeleteMenuItem()}
-        {renderReportMenuItem()}
-      </Menu>
+      {
+        !!MenuItems?.length &&
+        <Menu
+          anchorEl={moreOptionsMenuAnchor}
+          open={!!moreOptionsMenuAnchor}
+          onClose={() => setMoreOptionsMenuAnchor(null)}
+        >
+          {MenuItems}
+        </Menu>
+      }
     </Card>
   );
 };

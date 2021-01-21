@@ -55,6 +55,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',    
   },
+  classroomNameString: {
+    cursor: 'pointer',
+    display: 'inline',
+  },
 }));
 
 const MessageCard = ({
@@ -108,7 +112,11 @@ const MessageCard = ({
             </Typography>
           </Grid>
           <Grid item >
-            <Typography variant="h6" onClick={handleClassRoomClick}>
+            <Typography 
+              className={classroom && classes.classroomNameString} 
+              variant="h6" 
+              onClick={handleClassRoomClick}
+            >
               {classRoomName}
             </Typography>
           </Grid>
@@ -170,8 +178,7 @@ const MessageCard = ({
   };
 
   const MenuItems = [];
-  isMyOwnMessage && MenuItems.push(<MenuItem onClick={handleDeleteMessage}>حذف</MenuItem>);
-  // MenuItems.push(<MenuItem>گزارش</MenuItem>);
+  isMyOwnMessage && MenuItems.push(<MenuItem key="delete" onClick={handleDeleteMessage}>حذف</MenuItem>);
 
   return (
     <Card className={`${className} ${classes.card}`} elevation={0}>

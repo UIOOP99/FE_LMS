@@ -27,7 +27,9 @@ const LessonCenterSection = () => {
   const [filter] = useMessageFilter();
   const { data: messages } = useSWR<IMessageCardProps[]>([lessonMessagesKey, lessonId, filter.query], lessonMessagesFetcher);
   const { data: classroomInfo } = useSWR([classroomInfoKey, lessonId], classroomInfoFetcher);
-  const messageCardMocks = messages ||[];
+  const messageCardMocks = messages
+    ?.sort((a, b) => (new Date(b.messageDate).getTime() - new Date(a.messageDate).getTime()))
+    ||[];
 
    return (
     <>

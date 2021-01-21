@@ -20,7 +20,7 @@ const theme = createMuiTheme({
     },
   },
   typography: {
-    fontFamily: "YekanBakhFaNum",
+    fontFamily: "YekanBakhFaEn",
     fontWeightMedium: 500,
     fontWeightRegular: "normal",
     fontWeightBold: "bold",

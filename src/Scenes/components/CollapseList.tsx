@@ -1,6 +1,7 @@
 import { Collapse, ListItem, ListItemIcon, ListItemText, makeStyles } from '@material-ui/core';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import React, { ComponentType, ReactNode, useState } from 'react';
+import { farsiNumbers } from 'services/utils/i18nUtils';
 
 
 interface ICollapseListProps {
@@ -32,7 +33,7 @@ const CollapseList = ({listTitle, ListIcon, ListComponent, listCount}: ICollapse
         <ListItemIcon >{ListIcon}</ListItemIcon>
         <ListItemText>
           {listTitle}
-          <div className={classes.countBadge}>{listCount}</div>
+          <div className={classes.countBadge}>{farsiNumbers(listCount)}</div>
         </ListItemText>
         {isCollapsed ? <ExpandMore /> : <ExpandLess />}
       </ListItem>

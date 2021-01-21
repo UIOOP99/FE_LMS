@@ -1,3 +1,4 @@
+import { zipWith } from "lodash";
 import { axiosInstance } from "services/axios/axios";
 
 export const lessonBaseUrl = '/lesson';
@@ -13,9 +14,12 @@ export const lessonMessagesFetcher = async (key: string, lessonId: any, lessonFi
   const {data} = await axiosInstance.get(`${lessonBaseUrl}/${lessonId}/messages`, {
     params: {
       filter: lessonFilter,
+      include: 'classroom'
     }
   });
-  return data.messages;
+  return zipWith(data.messages, data.users, 
+    (a:any, b:any) => ({...a, user: b})
+  );
 };
 
 export const lessonMembersKey = '/lesson-members';

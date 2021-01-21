@@ -8,5 +8,4 @@ export default (server: Server) => {
   const exams = server.createList('exam', 15);
   exams.forEach((exam) => exam.update({classroom: sample(classrooms)}));
   server.createList('message', 15);
-  exams.forEach((exam: any) => console.log(exam.classroomId));
 };

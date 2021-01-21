@@ -62,7 +62,6 @@ createServer({
     this.get('api/lesson/:lessonId/exams', (schema: any, req) => {
       const {lessonId} = req.params;
       const exams = schema.exams.where({classroomId: lessonId});
-      console.log(lessonId);
       
       return exams;
     });

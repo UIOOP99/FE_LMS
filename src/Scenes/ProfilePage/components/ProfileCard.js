@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function ProfileCard({imgUrl='http://lms.ui.ac.ir/publicnew/user/8f/9d/04/494f6_497c.jpg?c=d111', name = 'امیر مهدی', family='سلیمانی', userId='963613048', role= 'دانشجو'}) {
+export default function ProfileCard({avatarUrl='http://lms.ui.ac.ir/publicnew/user/8f/9d/04/494f6_497c.jpg?c=d111', fullName = 'امیر مهدی',username='amirmahdi' , idNumber='963613048', role= 'دانشجو'}) {
   const classes = useStyles();
 
   return (
@@ -43,20 +43,20 @@ export default function ProfileCard({imgUrl='http://lms.ui.ac.ir/publicnew/user/
         <Grid container spacing={2}>
           <Grid item>
             <ButtonBase className={classes.image}>
-              <img className={classes.img} alt="complex" src={imgUrl} />
+              <img className={classes.img} alt="complex" src={avatarUrl} />
             </ButtonBase>
           </Grid>
           <Grid item xs={12} sm container>
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
-                <Typography className={classes.text} gutterBottom variant="body1">
-                نام:  {name}
-                </Typography>
-                <Typography className={classes.text} variant="body1" gutterBottom>
-                نام خانوادگی:  {family}
+              <Typography className={classes.text} variant="body1" gutterBottom>
+                نام و نام خانوادگی:  {fullName}
                 </Typography>
                 <Typography className={classes.text} gutterBottom variant="body1">
-                  شماره کاربری:  {userId}
+                نام کاربری:  {username}
+                </Typography>
+                <Typography className={classes.text} gutterBottom variant="body1">
+                  شماره کاربری:  {idNumber}
                 </Typography>
                 <Typography className={classes.text} gutterBottom variant="body1">
                   سطح کاربری:  {role}

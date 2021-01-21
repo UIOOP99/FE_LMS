@@ -1,5 +1,6 @@
 import React from 'react';
 import { Avatar, Card, CardActionArea, Grid, makeStyles, Typography } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 
 export interface IUserCardProps {
   userFullName: string,
@@ -25,10 +26,10 @@ const useStyles = makeStyles((theme) => ({
 
 const UserCard = ({userFullName, avatarUrl, idNumber, showIdNumber = false}: IUserCardProps) => {
   const classes = useStyles();
-  const handleUserProfileClick = () => {
-    return;
-  };
+  const history = useHistory();
 
+  const handleUserProfileClick = () => idNumber && history.push(`/profile/${idNumber}`);
+  
   return (
     <Card elevation={0}>
       <CardActionArea className={classes.card} onClick={handleUserProfileClick}>

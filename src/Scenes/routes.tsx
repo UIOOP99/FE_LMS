@@ -37,7 +37,7 @@ const routes: IRoute[] = [
     component: LoginPage,
   },
   {
-    path: "/profile",
+    path: "/profile/:id",
     component: ProfilePage,
   },
 ];

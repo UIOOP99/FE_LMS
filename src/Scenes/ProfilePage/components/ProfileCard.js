@@ -1,9 +1,13 @@
-import React from 'react'
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import useSWR from 'swr';
+import { useParams } from 'react-router-dom';
+
+import { profileFetcher, profileKey } from 'services/api/user';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,8 +38,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function ProfileCard({avatarUrl='http://lms.ui.ac.ir/publicnew/user/8f/9d/04/494f6_497c.jpg?c=d111', fullName = 'امیر مهدی',username='amirmahdi' , idNumber='963613048', role= 'دانشجو'}) {
+export default function ProfileCard() {
   const classes = useStyles();
+  const { id: userId } = useParams();
+
+  // const { data: { avatarUrl, fullName, username, idNumber, role } } = useSWR([profileKey, userId], profileFetcher);
+  const { avatarUrl, fullName, username, idNumber, role } = mockedData;
 
   return (
     <div className={classes.root}>
@@ -71,3 +79,11 @@ export default function ProfileCard({avatarUrl='http://lms.ui.ac.ir/publicnew/us
     </div>
   );
 }
+
+const mockedData = {
+  avatarUrl:'http://lms.ui.ac.ir/publicnew/user/8f/9d/04/494f6_497c.jpg?c=d111',
+  fullName:'امیر مهدی',
+  username:'amirmahdi' ,
+  idNumber: '963613048',
+  role: 'دانشجو',
+};

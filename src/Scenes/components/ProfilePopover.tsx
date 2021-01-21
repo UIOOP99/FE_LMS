@@ -3,6 +3,7 @@ import { Avatar, Button, Grid, makeStyles, Popover, Typography } from '@material
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import EditIcon from '@material-ui/icons/Edit';
 import { useUserState } from 'services/Contexts/UserContext';
+import { useHistory } from 'react-router-dom';
 
 interface IProfilePopoverProps {
   open: boolean,
@@ -40,8 +41,10 @@ const useStyles = makeStyles((theme) => ({
 
 const ProfilePopover = ({open, anchorEl, onClose}: IProfilePopoverProps) => {
   const classes = useStyles();
-
+  const history = useHistory();
   const {fullName: userFullName, idNumber, avatarUrl} = useUserState();
+
+  const handleProfileButtonOnClick = () => idNumber && history.push(`/profile/${idNumber}`);
 
   return (
     <Popover PaperProps={{className: classes.popoverContainer}} open={open} anchorEl={anchorEl} onClose={onClose} anchorOrigin={{horizontal: 'left', vertical: "bottom"}}>
@@ -65,7 +68,7 @@ const ProfilePopover = ({open, anchorEl, onClose}: IProfilePopoverProps) => {
       </Grid>
       <Grid container justify="space-evenly">
         <Grid item>
-          <Button startIcon={<EditIcon />}>پروفایل</Button>
+          <Button onClick={handleProfileButtonOnClick} startIcon={<EditIcon />}>پروفایل</Button>
         </Grid>
         <Grid item>
           <Button startIcon={<ExitToAppIcon />}>خروج</Button>

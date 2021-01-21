@@ -5,7 +5,7 @@ import {
   IconButton,
   makeStyles,
 } from "@material-ui/core";
-import { Home, Settings } from "@material-ui/icons";
+import { Home } from "@material-ui/icons";
 import React, { ReactElement, SyntheticEvent, useState } from "react";
 import { useHistory } from "react-router-dom";
 import BannerNav from "Scenes/components/BannerNav";
@@ -49,10 +49,6 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(4),
     height: theme.spacing(4),
   },
-  settingButton: {
-    width: theme.spacing(3),
-    height: theme.spacing(3),
-  },
 }));
 
 const navbarLinks: ILink[] = [
@@ -60,7 +56,6 @@ const navbarLinks: ILink[] = [
   { title: "گلستان", path: "https://golestan.ui.ac.ir/" },
   { title: "آزمون", path: "." },
   { title: "تغذیه", path: "." },
-  { title: "کتابخانه", path: "." },
 ];
 
 const Navbar = () => {
@@ -74,10 +69,6 @@ const Navbar = () => {
   ] = useState<HTMLElement | null>(null);
 
   const handleNavigateToLink = (path: string) => history.push('/');
-
-  const handleSettingClick = () => {
-    return;
-  };
 
   const handleAvatarClick = (e: SyntheticEvent<HTMLElement>) => {
     setProfilePopoverAnchor(e.currentTarget);
@@ -110,11 +101,6 @@ const Navbar = () => {
 
         <Grid item xs />
 
-        <Grid className={classes.settingButtonContainer} item>
-          <IconButton onClick={handleSettingClick}>
-            <Settings className={classes.settingButton} />
-          </IconButton>
-        </Grid>
         <Grid className={classes.avatarContainer} item>
           <IconButton onClick={handleAvatarClick}>
             <Avatar className={classes.avatar} src="avatar" />

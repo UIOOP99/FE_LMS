@@ -7,7 +7,7 @@ interface ICollapseListProps {
   listTitle: string,
   ListIcon?: ReactNode,
   ListComponent: ComponentType,
-  listCount?: number,
+  listCount: number,
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -32,7 +32,7 @@ const CollapseList = ({listTitle, ListIcon, ListComponent, listCount}: ICollapse
         <ListItemIcon >{ListIcon}</ListItemIcon>
         <ListItemText>
           {listTitle}
-          {listCount && <div className={classes.countBadge}>{listCount}</div>}
+          <div className={classes.countBadge}>{listCount}</div>
         </ListItemText>
         {isCollapsed ? <ExpandMore /> : <ExpandLess />}
       </ListItem>

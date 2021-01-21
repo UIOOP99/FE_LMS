@@ -6,6 +6,7 @@ const LessonPage = lazy(() => import("./LessonPage"));
 const TestPage = lazy(() => import("./TestPage"));
 const MainPage = lazy(() => import("./MainPage"));
 const LoginPage = lazy(() => import("./LoginPage"));
+const ProfilePage = lazy(() => import("./ProfilePage"));
 
 export interface IRoute {
   path?: string | string[];
@@ -34,6 +35,10 @@ const routes: IRoute[] = [
   {
     path: "/login",
     component: LoginPage,
+  },
+  {
+    path: "/profile",
+    component: ProfilePage,
   },
 ];
 

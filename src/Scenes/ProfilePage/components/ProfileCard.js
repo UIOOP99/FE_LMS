@@ -1,11 +1,7 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import Typography from '@material-ui/core/Typography';
-import ButtonBase from '@material-ui/core/ButtonBase';
 import useSWR from 'swr';
 import { useParams } from 'react-router-dom';
+import { makeStyles, Grid, Card, Typography, ButtonBase } from '@material-ui/core';
 
 import { profileFetcher, profileKey } from 'services/api/user';
 
@@ -70,9 +66,7 @@ export default function ProfileCard() {
                   سطح کاربری:  {role}
                 </Typography>
               </Grid>
-              
             </Grid>
-          
           </Grid>
         </Grid>
       </Card>

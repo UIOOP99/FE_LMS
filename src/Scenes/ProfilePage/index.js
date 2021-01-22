@@ -2,18 +2,15 @@ import React from 'react';
 import BaseLayout from 'Scenes/components/BaseLayout';
 import Profile from './components/ProfileCard';
 import EmptySide from './components/EmptySide';
-
-import { useUserState } from 'services/Contexts/UserContext';
+import ProfileRightSidebar from './components/ProfileRightSidebar';
 
 
 const ProfilePage = () => {
-  const userState = useUserState();
-
 
   return (
     <BaseLayout 
-      CenterComponent={() => <Profile {...userState} />}
-      RightComponent={EmptySide}
+      CenterComponent={Profile}
+      RightComponent={ProfileRightSidebar}
       LeftComponent={EmptySide}
     />
   );

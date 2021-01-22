@@ -24,7 +24,7 @@ const routes: IRoute[] = [
     exact: true,
   },
   {
-    path: "/lesson",
+    path: "/lesson/:id",
     component: LessonPage,
   },
   {

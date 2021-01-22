@@ -8,7 +8,7 @@ import HomeRightSidebar from "./components/HomeRightSidebar";
 import { useUserDispatch } from "services/Contexts/UserContext";
 
 const Index = () => {
-let dispatcher = useUserDispatch()
+let dispatcher = useUserDispatch();
 
 
 useEffect(() => {
@@ -16,10 +16,10 @@ axiosInstance.get("/profile").then((res)=>{
   dispatcher({
     type : EUserActionTypes.LOGIN ,
     payload : res.data
-  })
-})
+  });
+});
 
-}, [dispatcher])
+}, [dispatcher]);
 
   return (
     <BaseLayout

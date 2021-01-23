@@ -7,8 +7,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
-import { Avatar, Card, Grid } from "@material-ui/core";
-import { ArrowBackIos, CloudUpload } from "@material-ui/icons";
+import { Avatar, Card, Grid, IconButton } from "@material-ui/core";
+import { AccountBalance, ArrowBackIos, CloudUpload } from "@material-ui/icons";
 import useSWR from "swr";
 import { classroomInfoFetcher, classroomInfoKey } from "services/api/lesson";
 
@@ -36,9 +36,6 @@ const useStyles = makeStyles((theme: Theme) =>
             // marginRight: theme.spacing(4),
             minWidth: theme.spacing(15),
         },
-        chooseButton: {
-            margin: theme.spacing(1),
-        },
         spanOfFileName : {
             fontSize: '0.8rem',
             margin: theme.spacing(1),
@@ -55,7 +52,8 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         chooseFile : {
             position: 'absolute',
-            opacity : 0
+            opacity : 0,
+            maxWidth: theme.spacing(6)
         },
         submitBtn : {
             // margin: theme.spacing(1),
@@ -79,8 +77,19 @@ const useStyles = makeStyles((theme: Theme) =>
           height: theme.spacing(6),
         },
         textfieldContainer: {
-            padding: theme.spacing(0, 1),
+            paddingRight: theme.spacing(1),
         },
+        classIconContainer: {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: theme.spacing(8),
+        },
+        classIcon: {
+            width: theme.spacing(4),
+            height: theme.spacing(4),
+            color: theme.palette.primary.dark,
+        }
     }),
 );
 
@@ -135,10 +144,10 @@ const SendMessage = ({classroomId}: {classroomId?: string}) => {
         if (fileState.visibilityFileButton){
             return (
                 <Grid className={classes.gridItemCenter} item>
-                    <Button startIcon={<CloudUpload />} className={classes.chooseButton} variant="outlined" >
-                        انتخاب فایل پیوست
+                    <IconButton>
                         <input className={classes.chooseFile} type="file" onChange={handleSelectFile} ref={fileInput}/>
-                    </Button>
+                        <CloudUpload />
+                    </IconButton>
                     {showFileName()}
                 </Grid>
             );
@@ -286,7 +295,7 @@ const SendMessage = ({classroomId}: {classroomId?: string}) => {
     return (
         <Card className={classes.container} elevation={0}>
             <form className={classes.root} noValidate autoComplete="off" onSubmit={submitForm}>
-                <Grid className={classes.textfieldContainer} container>
+                <Grid className={classes.textfieldContainer} container spacing={2}>
                     <Grid className={classes.gridItemCenter} item>
                         <Avatar className={classes.avatar} src={avatarUrl}/>
                     </Grid>
@@ -304,6 +313,9 @@ const SendMessage = ({classroomId}: {classroomId?: string}) => {
                     </Grid>
                 </Grid>
                 <Grid container spacing={2}>
+                    <Grid className={classes.classIconContainer} item >
+                        <AccountBalance className={classes.classIcon} />
+                    </Grid>
                     <Grid className={classes.gridItemCenter} item>
                         <FormControl variant="outlined" className={classes.formControl}>
                             {/* <InputLabel id="demo-simple-select-outlined-label">انتخاب کلاس</InputLabel> */}

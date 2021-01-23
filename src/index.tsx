@@ -6,15 +6,16 @@ import ReactDOM from "react-dom";
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import App from "Scenes/App";
 import RTLProvider from "Scenes/components/RTLProvider";
-import { browserHistory } from "services/navigation";
 import "styles/global.css";
 import { QueryParamProvider } from "use-query-params";
 
 import 'services/mirage';
+import moment from 'moment-jalaali';
+
+moment.loadPersian({usePersianDigits: true});
 
 const Main = () => (
   <MuiThemeProvider theme={Theme.theme}>
-    {/* <Router history={browserHistory}> */}
     <Router >
       <QueryParamProvider ReactRouterRoute={Route}>
         <RTLProvider>

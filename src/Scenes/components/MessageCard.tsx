@@ -33,7 +33,6 @@ export interface IMessageCardProps {
 const useStyles = makeStyles((theme) => ({
   card: {
     padding: theme.spacing(2),
-    backgroundColor: theme.palette.grey[100],
   },
   headerContainer: {
     marginBottom :theme.spacing(1),
@@ -47,6 +46,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
   },
+  infoContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
   moreButtonContainer: {
     display: 'flex',
     alignItems: 'center',    
@@ -54,6 +57,17 @@ const useStyles = makeStyles((theme) => ({
   dateStringContainer: {
     display: 'flex',
     alignItems: 'center',    
+  },
+  classroomNameString: {
+    fontSize: '1rem',
+  },
+  classroomNameSelectable: {
+    cursor: 'pointer',
+    display: 'inline',
+  },
+  avatar: {
+    width: theme.spacing(6),
+    height: theme.spacing(6),
   },
 }));
 
@@ -63,10 +77,13 @@ const MessageCard = ({
   }: {className?: string} & IMessageCardProps) => {
   const classes = useStyles();
 
-  const {role} = useUserState();
+  const {role, fullName: myFullName} = useUserState();
   const [moreOptionsMenuAnchor, setMoreOptionsMenuAnchor] = useState<HTMLElement | null>(null);
 
   const showAnswersButton = role === 'professor';
+
+  //TODO: need a more elegant way
+  const isMyOwnMessage = userFullName === myFullName;
 
   const history = useHistory();
 
@@ -86,31 +103,42 @@ const MessageCard = ({
     return;
   };
 
-  const renderHeader = () => {
+  const handleDeleteMessage = () => {
+    return;
+  };
+
+  const renderHeader = (showMoreButton: boolean) => {
     return (
       <Grid className={classes.headerContainer} item xs={12} container spacing={2}>
         <Grid className={classes.avatarContainer} item>
           <IconButton onClick={handleUserProfileClick}>
-            <Avatar src={user?.avatarUrl}/>
+            <Avatar className={classes.avatar} src={user?.avatarUrl}/>
           </IconButton>
         </Grid>
-        <Grid item container xs direction="column">
+        <Grid className={classes.infoContainer} item container xs direction="column">
           <Grid item >
-            <Typography variant="body1" onClick={handleUserProfileClick}>
+            <Typography variant="body2" onClick={handleUserProfileClick}>
               {userFullName}
             </Typography>
           </Grid>
           <Grid item >
-            <Typography variant="h6" onClick={handleClassRoomClick}>
+            <Typography 
+              className={`${classes.classroomNameString} ${classroom ? classes.classroomNameSelectable : ''}`} 
+              variant="h6" 
+              onClick={handleClassRoomClick}
+            >
               {classRoomName}
             </Typography>
           </Grid>
         </Grid>
-        <Grid className={classes.moreButtonContainer} item>
-          <IconButton onClick={(e) => setMoreOptionsMenuAnchor(e.currentTarget)}>
-            <MoreHoriz />
-          </IconButton>
-        </Grid>
+        {
+          showMoreButton &&
+          <Grid className={classes.moreButtonContainer} item>
+            <IconButton onClick={(e) => setMoreOptionsMenuAnchor(e.currentTarget)}>
+              <MoreHoriz />
+            </IconButton>
+          </Grid>
+        }
       </Grid>
     );
   };
@@ -127,6 +155,7 @@ const MessageCard = ({
               key={file.fileName} 
               variant="text" 
               onClick={() => handleAttachedFileClick(file)}
+              color="primary"
             >
               {file.fileName}
             </Button>
@@ -147,45 +176,39 @@ const MessageCard = ({
             variant="contained" 
             disableElevation
             onClick={handleShowAnswersClick}
+            color="primary"
           >
             مشاهده جواب‌ها
           </Button>
         </Grid>)}
       <Grid item xs/>
       <Grid className={classes.dateStringContainer} item>
-        <Typography variant="body1">{dateString}</Typography>
+        <Typography variant="caption">{dateString}</Typography>
       </Grid>
       </Grid>
     );
   };
 
-  // TODO: render options conditionally
-  const renderDeleteMenuItem = () => {
-    return (
-        <MenuItem>حذف</MenuItem>
-    );
-  };  
-  const renderReportMenuItem = () => {
-    return (
-        <MenuItem>گزارش</MenuItem>
-    );
-  };
+  const MenuItems = [];
+  isMyOwnMessage && MenuItems.push(<MenuItem key="delete" onClick={handleDeleteMessage}>حذف</MenuItem>);
 
   return (
     <Card className={`${className} ${classes.card}`} elevation={0}>
       <Grid container>
-        {renderHeader()}
+        {renderHeader(!!MenuItems?.length)}
         {renderContent()}
         {renderFooter()}
       </Grid>
-      <Menu
-        anchorEl={moreOptionsMenuAnchor}
-        open={!!moreOptionsMenuAnchor}
-        onClose={() => setMoreOptionsMenuAnchor(null)}
-      >
-        {renderDeleteMenuItem()}
-        {renderReportMenuItem()}
-      </Menu>
+      {
+        !!MenuItems?.length &&
+        <Menu
+          anchorEl={moreOptionsMenuAnchor}
+          open={!!moreOptionsMenuAnchor}
+          onClose={() => setMoreOptionsMenuAnchor(null)}
+        >
+          {MenuItems}
+        </Menu>
+      }
     </Card>
   );
 };

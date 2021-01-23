@@ -25,7 +25,10 @@ const Filler = ({ text, height }: {text:string, height: string}) => (
 const HomeCenterSection = () => {
   const [filter] = useMessageFilter();
   const { data: messages } = useSWR<IMessageCardProps[]>([timelineMessagesKey, filter.query], timelineMessagesFetcher);
-  const messageCardMocks = messages ||[];
+  const messageCardMocks = messages
+    ?.sort((a, b) => (new Date(b.messageDate).getTime() - new Date(a.messageDate).getTime()))
+    ||[];
+  
 
   return (
     <>

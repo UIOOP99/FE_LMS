@@ -11,16 +11,20 @@ const theme = createMuiTheme({
       // contrastText: will be calculated to contrast with palette.primary.main
     },
     text: {
-    //   primary: "#000000",
+      primary: "#2f2f2f",
     //   secondary: "#FFFFFF",
     },
     secondary: {
-      main: "#00416d",
-      light: "#003457",
+      main: "#8DAA91",
+      // light: "#d8e8da",
+      light: "#e4ede5",
     },
+    background: {
+      default: '#f7f7f7'
+    }
   },
   typography: {
-    fontFamily: "YekanBakhFaNum",
+    fontFamily: "YekanBakhFaEn",
     fontWeightMedium: 500,
     fontWeightRegular: "normal",
     fontWeightBold: "bold",

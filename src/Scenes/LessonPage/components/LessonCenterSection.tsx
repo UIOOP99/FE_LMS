@@ -1,4 +1,3 @@
-import { Card } from '@material-ui/core';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import FilterSelection from 'Scenes/components/FilterSelection';
@@ -9,18 +8,8 @@ import { classroomInfoFetcher, classroomInfoKey, lessonMessagesFetcher, lessonMe
 import useMessageFilter from 'services/hooks/useMessageFilter';
 import useSWR from 'swr';
 import ScrollToTopOnMount from 'Scenes/components/ScrollToTopOnMount';
+import SendMessage from 'Scenes/components/SendMessage';
 
-const Filler = ({ text, height }: {text:string, height: string}) => (
-  <Card 
-    style={{
-      backgroundColor: 'gainsboro',
-      height,
-    }}
-    elevation={0}
-  >
-    {text}
-  </Card>
-);
 
 const LessonCenterSection = () => {
   const { id: lessonId } = useParams<{id: string}>();
@@ -34,7 +23,8 @@ const LessonCenterSection = () => {
    return (
     <>
       <ScrollToTopOnMount />
-      <Filler height="100px" text="insert create post component here"/>
+      {/* <Filler height="100px" text="insert create post component here"/> */}
+      <SendMessage classroomId={lessonId}/>
       <Spacer spacing={2} orientation="h"/>
       <FilterSelection title={classroomInfo?.name}/>
       <Spacer spacing={2} orientation="h"/>

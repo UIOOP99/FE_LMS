@@ -4,6 +4,7 @@ import { Avatar, Button, Card, Grid, IconButton, makeStyles, Menu, MenuItem, Typ
 import { MoreHoriz } from '@material-ui/icons';
 import moment from 'moment-jalaali';
 import { useUserState } from 'services/Contexts/UserContext';
+import { useHistory } from 'react-router-dom';
 
 
 interface IFile {
@@ -25,6 +26,8 @@ export interface IMessageCardProps {
   attachedFiles?: IFile[],
   userAnswers?: IUserAnswer[],
   messageDate: Date,
+  user?: any,
+  classroom?: any,
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -56,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MessageCard = ({
     userFullName, avatarUrl, classRoomName, message, attachedFiles, userAnswers, messageDate,
-    className,
+    className, user, classroom
   }: {className?: string} & IMessageCardProps) => {
   const classes = useStyles();
 
@@ -65,12 +68,14 @@ const MessageCard = ({
 
   const showAnswersButton = role === 'professor';
 
+  const history = useHistory();
+
   const handleUserProfileClick = () => {
     return;
   };
 
   const handleClassRoomClick = () => {
-    return;
+    classroom && history.push(`/lesson/${classroom.id}`);
   };
 
   const handleAttachedFileClick = (file: IFile) => {
@@ -86,7 +91,7 @@ const MessageCard = ({
       <Grid className={classes.headerContainer} item xs={12} container spacing={2}>
         <Grid className={classes.avatarContainer} item>
           <IconButton onClick={handleUserProfileClick}>
-            <Avatar src={avatarUrl}/>
+            <Avatar src={user?.avatarUrl}/>
           </IconButton>
         </Grid>
         <Grid item container xs direction="column">

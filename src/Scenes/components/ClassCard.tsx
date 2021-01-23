@@ -4,7 +4,7 @@ import React, { ReactNode } from 'react';
 
 interface IClassCardProps {
   title: string,
-  Icon?: ReactNode,
+  Icon?: any,
   primaryDesc?: string,
   secondaryDesc?: string
 }
@@ -12,7 +12,7 @@ interface IClassCardProps {
 const ClassCard = ({title, Icon, primaryDesc, secondaryDesc}: IClassCardProps) => {
   return (
     <ListItem alignItems="flex-start" button>
-      <ListItemIcon><Avatar>{Icon}</Avatar></ListItemIcon>
+      <ListItemIcon><Avatar><Icon /></Avatar></ListItemIcon>
       <ListItemText 
         primary={title}
         secondary={

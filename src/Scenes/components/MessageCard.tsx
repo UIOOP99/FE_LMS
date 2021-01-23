@@ -33,7 +33,6 @@ export interface IMessageCardProps {
 const useStyles = makeStyles((theme) => ({
   card: {
     padding: theme.spacing(2),
-    backgroundColor: theme.palette.grey[100],
   },
   headerContainer: {
     marginBottom :theme.spacing(1),
@@ -145,6 +144,7 @@ const MessageCard = ({
               key={file.fileName} 
               variant="text" 
               onClick={() => handleAttachedFileClick(file)}
+              color="primary"
             >
               {file.fileName}
             </Button>
@@ -165,6 +165,7 @@ const MessageCard = ({
             variant="contained" 
             disableElevation
             onClick={handleShowAnswersClick}
+            color="primary"
           >
             مشاهده جواب‌ها
           </Button>

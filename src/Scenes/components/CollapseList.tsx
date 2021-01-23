@@ -1,4 +1,4 @@
-import { Collapse, ListItem, ListItemIcon, ListItemText, makeStyles } from '@material-ui/core';
+import { Card, Collapse, ListItem, ListItemIcon, ListItemText, makeStyles } from '@material-ui/core';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import React, { ComponentType, ReactNode, useState } from 'react';
 import { farsiNumbers } from 'services/utils/i18nUtils';
@@ -19,7 +19,10 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: theme.spacing(1),
     paddingLeft: theme.spacing(1),
     borderRadius: 4,
-    backgroundColor: theme.palette.grey[300],
+    backgroundColor: theme.palette.secondary.light,
+  },
+  darkPrimaryicon: {
+    color: theme.palette.primary.dark,
   }
 }));
 
@@ -28,21 +31,21 @@ const CollapseList = ({listTitle, ListIcon, ListComponent, listCount}: ICollapse
   
   const [isCollapsed, setIsCollapsed] = useState(false);
   return (
-    <>
+    <Card elevation={0}>
       <ListItem button onClick={() => setIsCollapsed((ps) => !ps)}>
-        <ListItemIcon >{ListIcon}</ListItemIcon>
+        <ListItemIcon className={classes.darkPrimaryicon}>{ListIcon}</ListItemIcon>
         <ListItemText>
           {listTitle}
           <div className={classes.countBadge}>{farsiNumbers(listCount)}</div>
         </ListItemText>
-        {isCollapsed ? <ExpandMore /> : <ExpandLess />}
+        {isCollapsed ? <ExpandMore className={classes.darkPrimaryicon}/> : <ExpandLess className={classes.darkPrimaryicon}/>}
       </ListItem>
       {ListComponent && 
         <Collapse in={!isCollapsed}>
           <ListComponent />
         </Collapse>
       }
-    </>
+    </Card>
   );
 };
 

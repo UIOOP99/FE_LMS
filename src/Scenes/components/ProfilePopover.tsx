@@ -1,7 +1,7 @@
 import React from 'react';
 import { Avatar, Button, Grid, makeStyles, Popover, Typography } from '@material-ui/core';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import EditIcon from '@material-ui/icons/Edit';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 import { useUserState } from 'services/Contexts/UserContext';
 
 interface IProfilePopoverProps {
@@ -65,10 +65,10 @@ const ProfilePopover = ({open, anchorEl, onClose}: IProfilePopoverProps) => {
       </Grid>
       <Grid container justify="space-evenly">
         <Grid item>
-          <Button startIcon={<EditIcon />}>پروفایل</Button>
+          <Button startIcon={<AccountCircle />} color="primary">پروفایل</Button>
         </Grid>
         <Grid item>
-          <Button startIcon={<ExitToAppIcon />}>خروج</Button>
+          <Button startIcon={<ExitToAppIcon />} color="primary">خروج</Button>
         </Grid>
       </Grid>
     </Popover>

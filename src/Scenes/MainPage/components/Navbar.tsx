@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   navbar: {
     minHeight: theme.spacing(5),
     padding: theme.spacing(0, 1),
-    backgroundColor: theme.palette.grey["100"],
+    backgroundColor: theme.palette.secondary.light,
     position: "sticky",
     top: 0,
     zIndex: theme.zIndex.appBar,
@@ -84,6 +84,7 @@ const Navbar = () => {
           variant="text"
           {...(IconElement && { startIcon: IconElement })}
           onClick={() => handleNavigateToLink(link.path)}
+          color="primary"
         >
           {link.title}
         </Button>

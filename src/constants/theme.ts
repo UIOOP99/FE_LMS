@@ -15,9 +15,13 @@ const theme = createMuiTheme({
     //   secondary: "#FFFFFF",
     },
     secondary: {
-      main: "#00416d",
-      light: "#003457",
+      main: "#8DAA91",
+      // light: "#d8e8da",
+      light: "#e4ede5",
     },
+    background: {
+      default: '#f7f7f7'
+    }
   },
   typography: {
     fontFamily: "YekanBakhFaEn",

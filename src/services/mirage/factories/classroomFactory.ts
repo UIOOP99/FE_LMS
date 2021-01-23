@@ -10,7 +10,7 @@ export default Factory.extend({
   ][i % 4]),
   afterCreate(classroom: any, server: Server) {
     classroom.update({
-      members: server.createList('user', random(1, 4))
+      members: server.createList('user', random(1, 20))
     });
   }
 });

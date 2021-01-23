@@ -8,12 +8,14 @@ import Spacer from './Spacer';
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    backgroundColor: theme.palette.grey[100],
     paddingRight: theme.spacing(2),
     paddingLeft: theme.spacing(2),
     height: '100%',
     display: 'flex',
     alignItems: 'center',
+  },
+  filterListItem: {
+    color: theme.palette.primary.dark,
   }
 }));
 
@@ -37,45 +39,45 @@ const FilterSelection : React.FC<{ title: string }> = ({ title }) => {
     setFilter(filterQuery);
   };
 
-  // const currentTime = '۲۰:۳۰:۳۲';
-
   return (
-    <Grid container>
-      <Grid item xs>
-        <Card className={classes.card} elevation={0}>
-          <Grid container>
-            <Grid item>{title}</Grid>
-            <Grid item xs />
-            <Grid item>{currentTime}</Grid>
-          </Grid>
-        </Card>
+    <Card elevation={0}>
+      <Grid container>
+        <Grid item xs>
+          <Card className={classes.card} elevation={0}>
+            <Grid container>
+              <Grid item>{title}</Grid>
+              <Grid item xs />
+              <Grid item>{currentTime}</Grid>
+            </Grid>
+          </Card>
+        </Grid>
+        <Spacer orientation="v" spacing={2}/>
+        <Grid item xs={3}>
+          <TextField 
+            value={filter.title}
+            size="small" 
+            variant="outlined" 
+            select 
+            fullWidth
+            InputProps={{startAdornment: (
+              <InputAdornment position="start">
+                <FilterList className={classes.filterListItem}/>
+              </InputAdornment>
+            )}}
+          >
+            {allFilters.map(({title: filterTitle, query: filterQuery}) => (
+              <MenuItem 
+                key={filterQuery || 'ALL'} 
+                value={filterTitle} 
+                onClick={() => handleFilterChange(filterQuery)}
+              >
+                {filterTitle}
+              </MenuItem>
+            ))}
+          </TextField>
+        </Grid>
       </Grid>
-      <Spacer orientation="v" spacing={2}/>
-      <Grid item xs={3}>
-        <TextField 
-          value={filter.title}
-          size="small" 
-          variant="outlined" 
-          select 
-          fullWidth
-          InputProps={{startAdornment: (
-            <InputAdornment position="start">
-              <FilterList />
-            </InputAdornment>
-          )}}
-        >
-          {allFilters.map(({title: filterTitle, query: filterQuery}) => (
-            <MenuItem 
-              key={filterQuery || 'ALL'} 
-              value={filterTitle} 
-              onClick={() => handleFilterChange(filterQuery)}
-            >
-              {filterTitle}
-            </MenuItem>
-          ))}
-        </TextField>
-      </Grid>
-    </Grid>
+    </Card>
   );
 };
 

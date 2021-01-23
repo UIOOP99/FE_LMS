@@ -68,7 +68,7 @@ const ProfilePopover = ({open, anchorEl, onClose}: IProfilePopoverProps) => {
       </Grid>
       <Grid container justify="space-evenly">
         <Grid item>
-          <Button onClick={handleProfileButtonOnClick} startIcon={<AccountCircle />}>پروفایل</Button>
+          <Button onClick={handleProfileButtonOnClick} startIcon={<AccountCircle />} color="primary">پروفایل</Button>
         </Grid>
         <Grid item>
           <Button startIcon={<ExitToAppIcon />} color="primary">خروج</Button>

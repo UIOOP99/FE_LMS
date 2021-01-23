@@ -1,22 +1,12 @@
-import { Card } from '@material-ui/core';
 import React from 'react';
+import LessonsList from 'Scenes/components/LessonsList';
 
-const Filler = ({ text, height }: {text:string, height: string}) => (
-  <Card 
-    style={{
-      backgroundColor: 'gainsboro',
-      height,
-    }}
-    elevation={0}
-  >
-    {text}
-  </Card>
-);
+import { useUserState } from 'services/Contexts/UserContext';
 
 const HomeRightSidebar = () => {
-  return (
-    <Filler height="100%" text="insert right sidebar component here"/>
-  );
+  const { idNumber } = useUserState();
+
+  return <LessonsList idNumber={idNumber} />;
 };
 
 export default HomeRightSidebar;

@@ -88,7 +88,7 @@ const MessageCard = ({
   const history = useHistory();
 
   const handleUserProfileClick = () => {
-    return;
+    user.idNumber && history.push(`/profile/${user.idNumber}`);
   };
 
   const handleClassRoomClick = () => {

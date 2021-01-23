@@ -11,7 +11,7 @@ const theme = createMuiTheme({
       // contrastText: will be calculated to contrast with palette.primary.main
     },
     text: {
-    //   primary: "#000000",
+      primary: "#2f2f2f",
     //   secondary: "#FFFFFF",
     },
     secondary: {

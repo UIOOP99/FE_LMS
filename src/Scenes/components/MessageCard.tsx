@@ -46,6 +46,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
   },
+  infoContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
   moreButtonContainer: {
     display: 'flex',
     alignItems: 'center',    
@@ -55,8 +59,15 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',    
   },
   classroomNameString: {
+    fontSize: '1rem',
+  },
+  classroomNameSelectable: {
     cursor: 'pointer',
     display: 'inline',
+  },
+  avatar: {
+    width: theme.spacing(6),
+    height: theme.spacing(6),
   },
 }));
 
@@ -101,18 +112,18 @@ const MessageCard = ({
       <Grid className={classes.headerContainer} item xs={12} container spacing={2}>
         <Grid className={classes.avatarContainer} item>
           <IconButton onClick={handleUserProfileClick}>
-            <Avatar src={user?.avatarUrl}/>
+            <Avatar className={classes.avatar} src={user?.avatarUrl}/>
           </IconButton>
         </Grid>
-        <Grid item container xs direction="column">
+        <Grid className={classes.infoContainer} item container xs direction="column">
           <Grid item >
-            <Typography variant="body1" onClick={handleUserProfileClick}>
+            <Typography variant="body2" onClick={handleUserProfileClick}>
               {userFullName}
             </Typography>
           </Grid>
           <Grid item >
             <Typography 
-              className={classroom && classes.classroomNameString} 
+              className={`${classes.classroomNameString} ${classroom ? classes.classroomNameSelectable : ''}`} 
               variant="h6" 
               onClick={handleClassRoomClick}
             >
@@ -172,7 +183,7 @@ const MessageCard = ({
         </Grid>)}
       <Grid item xs/>
       <Grid className={classes.dateStringContainer} item>
-        <Typography variant="body1">{dateString}</Typography>
+        <Typography variant="caption">{dateString}</Typography>
       </Grid>
       </Grid>
     );

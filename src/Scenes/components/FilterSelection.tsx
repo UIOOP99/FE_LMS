@@ -1,4 +1,4 @@
-import { Card, Grid, InputAdornment, makeStyles, MenuItem, TextField } from '@material-ui/core';
+import { Card, Grid, InputAdornment, makeStyles, MenuItem, TextField, Typography } from '@material-ui/core';
 import { FilterList } from '@material-ui/icons';
 import { MessageFilters } from 'constants/constants';
 import moment from 'moment-jalaali';
@@ -28,7 +28,7 @@ const FilterSelection : React.FC<{ title: string }> = ({ title }) => {
   const timerRef = useRef<number>();
 
   useEffect(() => {
-    timerRef.current = window.setInterval(() => setCurrentTime(moment(new Date()).format('hh:mm:ss')), 1000);
+    timerRef.current = window.setInterval(() => setCurrentTime(moment(new Date()).format('HH:mm:ss')), 1000);
     return () => {
       clearInterval(timerRef.current);
     };
@@ -43,13 +43,17 @@ const FilterSelection : React.FC<{ title: string }> = ({ title }) => {
     <Card elevation={0}>
       <Grid container>
         <Grid item xs>
-          <Card className={classes.card} elevation={0}>
+          <div className={classes.card}>
             <Grid container>
-              <Grid item>{title}</Grid>
+              <Grid item>
+                <Typography variant='h6'>{title}</Typography>
+              </Grid>
               <Grid item xs />
-              <Grid item>{currentTime}</Grid>
+              <Grid item>
+                <Typography variant='h6'>{currentTime}</Typography>
+              </Grid>
             </Grid>
-          </Card>
+          </div>
         </Grid>
         <Spacer orientation="v" spacing={2}/>
         <Grid item xs={3}>

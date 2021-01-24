@@ -7,10 +7,16 @@ export default Factory.extend({
     "کلاس اقتصاد مهندسي-۰۱",
     "کلاس مهندسي اينترنت-۰۱",
     "کلاس آزمايشگاه شبكه هاي كامپيوتري-۰۶",
-  ][i % 4]),
-  afterCreate(classroom: any, server: Server) {
-    classroom.update({
-      members: server.createList('user', random(1, 20))
-    });
-  }
+    "کلاس اصول طراحی کامپایلر",
+    "کلاس طراحی سیستم‌های دیجیتال",
+    "کلاس روش پژوهش و ارائه",
+    "کلاس ریزپردازنده",
+    "کلاس آیین زندگی",
+    "کلاس آزمایشگاه پایگاه داده"
+  ][i % 10]),
+  // afterCreate(classroom: any, server: Server) {
+  //   classroom.update({
+  //     members: server.createList('user', random(1, 20))
+  //   });
+  // }
 });

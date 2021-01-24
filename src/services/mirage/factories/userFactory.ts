@@ -1,16 +1,17 @@
-import { random } from "lodash";
+import { sample } from "lodash";
 import { Factory } from "miragejs";
 
 export default Factory.extend({
-  fullName: (i: number) => ([
-    "امیرمحمد چراغی",
-    "سیدعلی سجادی",
-    "امیررضا اسماعیلی",
-    "امیرمهدی سلیمانی",
-    "سجاد یزدان پرست",
-  ][i % 5]),
+  fullName: (i: number) =>
+    [
+      "امیرمحمد چراغی",
+      "سیدعلی سجادی",
+      "امیررضا اسماعیلی",
+      "امیرمهدی سلیمانی",
+      "سجاد یزدان پرست",
+    ][i % 5],
   avatarUrl() {
     return `https://i.pravatar.cc/150?u=${this.idNumber}`;
   },
-  idNumber: () => `${random(111111,999999)}`,
+  idNumber: () => `${sample(["963613045", "963613009"])}`,
 });

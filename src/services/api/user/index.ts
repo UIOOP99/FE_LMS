@@ -9,7 +9,10 @@ export const profileFetcher = async (key: string, userId: any) => {
 };
 
 export const lessonsKey = '/lessons';
-export const lessonsFetcher = async (key: string, userId: any) => {
+export const lessonsFetcher = async (key: string, userId: string) => {
   const {data} = await axiosInstance.get(`${userBaseUrl}/${userId}/lessons`);
+  console.log(data)
   return data.lessons;
 };
+
+

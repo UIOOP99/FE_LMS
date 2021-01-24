@@ -10,13 +10,16 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
+import { Card } from "@material-ui/core";
 
 // style of components
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
-            width: '95%',
+            width: '100%',
             margin: theme.spacing(1, 'auto'),
+
+
         },
         root: {
             '& .MuiTextField-root': {
@@ -270,7 +273,7 @@ const SendMessage = () => {
     };
 
     return (
-        <div className={classes.container}>
+        <Card elevation={0} className={classes.container}>
             <form className={classes.root} noValidate autoComplete="off" onSubmit={submitForm}>
                 <div className={classes.row}>
                     <TextField
@@ -320,7 +323,7 @@ const SendMessage = () => {
                     </div>
                 </div>
             </form>
-        </div>
+        </Card>
     );
 };
 

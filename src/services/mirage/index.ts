@@ -1,4 +1,4 @@
-import { belongsTo, createServer, hasMany, Model, Serializer } from "miragejs";
+import { belongsTo, createServer, hasMany, JSONAPISerializer, Model, Serializer } from "miragejs";
 import classroomFactory from "./factories/classroomFactory";
 import examFactory from "./factories/examFactory";
 import messageFactory from "./factories/messageFactory";
@@ -9,17 +9,19 @@ createServer({
   models: {
     user: Model.extend({
       classroom: belongsTo("classroom"),
+      messages: hasMany("message"),
     }),
     classroom: Model.extend({
-      members: hasMany("user"),
+      users: hasMany("user"),
+      messages: hasMany("message"),
     }),
     message: Model.extend({
       user: belongsTo("user"),
       classroom: belongsTo("classroom"),
     }),
-    exam: Model.extend({
-      classroom: belongsTo("classroom"),
-    }),
+    // exam: Model.extend({
+    //   classroom: belongsTo("classroom"),
+    // }),
   },
 
   factories: {
@@ -32,17 +34,32 @@ createServer({
   serializers: {
     message: Serializer.extend({
       include: ["user", "classroom"],
+      // extend:true
+      // embed :true
+    }),
+    // message : RestSerializer.extend({
+    //   include : ['user', 'classroom'],
+    //   embed :true
+    // })
+
+    // user: RestSerializer.extend({
+    //   include: ["classroom"],
+    //   embed: true,
+    // }),
+    classroom: Serializer.extend({
+      include: ["user"],
+      // embed: true,
     }),
   },
 
   seeds: scenarios.basic,
 
   routes() {
-    this.get("api/home/messages", (schema: any, req) => {
-      const { filter } = req.queryParams;
-      if (filter) {
-        return schema.messages.where({ messageType: filter });
-      }
+    this.get("api/messages", (schema: any, req) => {
+      // const { filter } = req.queryParams;
+      // if (filter) {
+      //   return schema.messages.where({ messageType: filter });
+      // }
       return schema.messages.all();
     });
     this.get("api/lesson/:id/classroom");
@@ -50,9 +67,9 @@ createServer({
     this.get("api/user/:idNumber/lesson", (schema: any, req) => {
       const { id } = req.params;
       const { classroom } = schema.users.find(id);
-      console.log(classroom)
+      console.log(classroom);
       // debugger
-      return classroom
+      return classroom;
     });
 
     this.get("api/lesson/:lessonId/messages", (schema: any, req) => {
@@ -80,3 +97,4 @@ createServer({
     });
   },
 });
+// export {}

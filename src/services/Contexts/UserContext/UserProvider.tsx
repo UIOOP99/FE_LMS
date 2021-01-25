@@ -4,6 +4,7 @@ import { userReducer } from "./UserReducer";
 
 const UserProvider: React.FC = ({ children }) => {
   const [user, dispatchUser] = useReducer(userReducer, initial);
+  console.log('provider')
 
   //fetch user data
   // develop use effect 

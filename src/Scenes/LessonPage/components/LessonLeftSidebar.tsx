@@ -14,12 +14,13 @@ import {
 } from "services/api/lesson";
 import useSWR from "swr";
 
-interface ISession {
+export interface ISession {
   date: string;
   id: number;
   status: string;
   time: string;
   title: string;
+  isToday : boolean
 }
 
 const LessonLeftSidebar = () => {

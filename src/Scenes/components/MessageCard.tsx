@@ -5,6 +5,7 @@ import { MoreHoriz } from '@material-ui/icons';
 import moment from 'moment-jalaali';
 import { useUserState } from 'services/Contexts/UserContext';
 import { useHistory } from 'react-router-dom';
+import { deleteMessageAPI } from 'services/api/message';
 
 
 interface IFile {
@@ -19,6 +20,7 @@ interface IUserAnswer {
 }
 
 export interface IMessageCardProps {
+  id: number,
   userFullName: string,
   avatarUrl?: string,
   classRoomName?: string,
@@ -28,6 +30,7 @@ export interface IMessageCardProps {
   messageDate: Date,
   user?: any,
   classroom?: any,
+  updateMessages: ()=>any,
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -72,10 +75,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MessageCard = ({
-    userFullName, avatarUrl, classRoomName, message, attachedFiles, userAnswers, messageDate,
-    className, user, classroom
+    id, userFullName, avatarUrl, classRoomName, message, attachedFiles, userAnswers, messageDate,
+    className, user, classroom, updateMessages
   }: {className?: string} & IMessageCardProps) => {
   const classes = useStyles();
+
 
   const {role, fullName: myFullName} = useUserState();
   const [moreOptionsMenuAnchor, setMoreOptionsMenuAnchor] = useState<HTMLElement | null>(null);
@@ -104,6 +108,7 @@ const MessageCard = ({
   };
 
   const handleDeleteMessage = () => {
+    deleteMessageAPI(id).then(updateMessages);
     return;
   };
 

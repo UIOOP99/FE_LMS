@@ -8,16 +8,18 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const MessageList = ({messages}: {messages: IMessageCardProps[]}) => {
+const MessageList = ({messages, updateMessages}: {messages: IMessageCardProps[], updateMessages: ()=>any}) => {
   const classes = useStyles();
   return (
     <>
       {
-        messages.map(({message, userFullName, avatarUrl,
+        messages.map(({id, message, userFullName, avatarUrl,
            messageDate, attachedFiles, classRoomName, userAnswers,
             user, classroom}) => (
           <MessageCard
+            updateMessages={updateMessages}
             key={`${userFullName}-${messageDate}`}
+            id={id}
             className={classes.messageItem}
             message={message}
             userFullName={userFullName}

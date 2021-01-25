@@ -23,7 +23,7 @@ const LessonCenterSection = () => {
     [lessonMessagesKey, lessonId, filter.query],
     lessonMessagesFetcher
   );
-  const { data: classroomInfo } = useSWR(
+  const { data: classroomInfo, revalidate } = useSWR(
     [classroomInfoKey, lessonId],
     classroomInfoFetcher
   );
@@ -37,12 +37,12 @@ const LessonCenterSection = () => {
     <>
       <ScrollToTopOnMount />
       {/* <Filler height="100px" text="insert create post component here"/> */}
-      <SendMessage classroomId={lessonId} />
+      <SendMessage classroomId={lessonId} updateMessages={revalidate}/>
       <Spacer spacing={2} orientation="h" />
       <FilterSelection title={classroomInfo?.name} />
       <Spacer spacing={2} orientation="h" />
       {messages ? (
-        <MessageList messages={messageCardMocks} />
+        <MessageList messages={messageCardMocks} updateMessages={revalidate} />
       ) : (
         <MessageCardSkeleton />
       )}

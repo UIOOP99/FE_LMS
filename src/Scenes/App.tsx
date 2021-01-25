@@ -5,7 +5,7 @@ import { Switch } from "react-router-dom";
 import { SWRConfig } from "swr";
 import { Loading } from "./components/Loading";
 import routes, { renderRoutes } from "./routes";
-
+import {LinearIndeterminate} from './components/ProgressBar'
 const useStyles = makeStyles((theme) => ({
   appBackground: {
     backgroundColor: theme.palette.background.default,
@@ -16,8 +16,12 @@ const App = () => {
   const classes = useStyles();
   return (
     <div className={classes.appBackground}>
+      <LinearIndeterminate/>
+
       <Suspense fallback={<Loading />}>
+
         <SWRConfig
+        
           value={{
             fetcher: (url) => axios.get(`/api${ url}`).then((r) => r.data),
           }}

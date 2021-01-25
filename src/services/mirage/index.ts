@@ -1,40 +1,3 @@
-<<<<<<< HEAD
-// import {belongsTo, createServer, hasMany, Model, Serializer} from 'miragejs';
-// import scenarios from './scenarios';
-// import messageFactory from './factories/messageFactory';
-// import userFactory from './factories/userFactory';
-// import classroomFactory from './factories/classroomFactory';
-// import examFactory from './factories/examFactory';
-
-
-// createServer({
-//   models: {
-//     user: Model,
-//     classroom: Model.extend({
-//       members: hasMany('user')
-//     }),
-//     message: Model.extend({
-//       user: belongsTo('user'),
-//       classroom: belongsTo('classroom'),
-//     }),
-//     exam: Model.extend({
-//       classroom: belongsTo('classroom'),
-//     }),
-//   }, 
-
-//   factories: {
-//     user: userFactory,
-//     classroom: classroomFactory,
-//     message: messageFactory,
-//     exam: examFactory,
-//   },
-
-//   serializers: {
-//     message: Serializer.extend({
-//       include: ['user', 'classroom']
-//     })
-//   },
-=======
 import { belongsTo, createServer, hasMany, Model, Serializer } from "miragejs";
 import classroomFactory from "./factories/classroomFactory";
 import examFactory from "./factories/examFactory";
@@ -84,48 +47,9 @@ createServer({
       include: ["user"],
     }),
   },
->>>>>>> 52193d57daf3c7438e4b6d08b3927f7770eed481
 
 //   seeds: scenarios.basic,
 
-<<<<<<< HEAD
-//   routes() {
-//     this.urlPrefix = 'http://localhost:8080/'
-//     this.get('api/home/messages', (schema: any, req) => {
-//       const {filter} = req.queryParams;
-//       if (filter) {
-//         return schema.messages.where({messageType: filter});
-//       }
-//       return schema.messages.all();
-//     });
-//     this.get('api/lesson/:id/classroom');
-//     this.get('api/lesson/:lessonId/messages', (schema: any, req) => {
-//       const {lessonId} = req.params;
-//       const {filter} = req.queryParams;
-//       const {name: lessonName} = schema.classrooms.find(lessonId);
-//       if (filter) {
-//         return schema.messages.where({classRoomName: lessonName, messageType: filter});
-//       }
-//       return schema.messages.where({classRoomName: lessonName});
-//     });
-//     this.get('api/lesson/:lessonId/members', (schema: any, req) => {
-//       const {lessonId} = req.params;
-//       const {members} = schema.classrooms.find(lessonId);
-//       return members;
-//     });
-//     this.get('api/lesson/:lessonId/exams', (schema: any, req) => {
-//       const {lessonId} = req.params;
-//       const exams = schema.exams.where({classroomId: lessonId});
-//       console.log(lessonId);
-      
-//       return exams;
-//     });
-  
-//   }
-// });
-
-export {} 
-=======
   routes() {
     this.get("api/home/messages", (schema: any, req) => {
       const { filter } = req.queryParams;
@@ -205,4 +129,3 @@ export {}
     });
   },
 });
->>>>>>> 52193d57daf3c7438e4b6d08b3927f7770eed481

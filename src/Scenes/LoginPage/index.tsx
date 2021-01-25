@@ -73,16 +73,8 @@ function Login() {
     else password = event.target.value;
   };
 
-<<<<<<< HEAD:src/Scenes/LoginPage/index.js
-  let history = useHistory()
-
-
-
-  const handleSubmit = (event) => {
-=======
   let history = useHistory();
   const handleSubmit = async (event: any) => {
->>>>>>> 52193d57daf3c7438e4b6d08b3927f7770eed481:src/Scenes/LoginPage/index.tsx
     event.preventDefault();
 
     const canLogin = fakeUsers.some(
@@ -107,20 +99,6 @@ function Login() {
       await wait(500);
       history.push("/");
     }
-<<<<<<< HEAD:src/Scenes/LoginPage/index.js
-    axiosInstance.post("/login",data).then(res =>{
-        LSService.setToken(createTokenObj(res.data.access.token, res.data.refresh.token))
-        history.push("/")
-
-    })
-    .catch(err =>{
-        alert(err)
-        console.log(err)
-    })
-
-  
-=======
->>>>>>> 52193d57daf3c7438e4b6d08b3927f7770eed481:src/Scenes/LoginPage/index.tsx
   };
 
   return (

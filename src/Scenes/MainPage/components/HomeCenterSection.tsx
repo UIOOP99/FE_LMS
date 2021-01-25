@@ -15,7 +15,7 @@ import { IMessageCardProps } from "../../components/MessageCard";
 
 const HomeCenterSection = () => {
   const [filter] = useMessageFilter();
-  const { data: messages } = useSWR<IMessageCardProps[]>(
+  const { data: messages, revalidate } = useSWR<IMessageCardProps[]>(
     [timelineMessagesKey, filter.query],
     timelineMessagesFetcher
   );
@@ -29,7 +29,7 @@ const HomeCenterSection = () => {
     <>
       <ScrollToTopOnMount />
       {/* <Filler height="100px" text="insert create post component here"/> */}
-      <SendMessage />
+      <SendMessage updateMessages={revalidate}/>
       <Spacer spacing={2} orientation="h" />
       <FilterSelection title="تایم‌لاین" />
       <Spacer spacing={2} orientation="h" />

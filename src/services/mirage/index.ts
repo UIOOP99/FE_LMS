@@ -58,6 +58,16 @@ createServer({
       }
       return schema.messages.all();
     });
+    this.post("api/message", (schema: any, req) => {
+      const message = JSON.parse(req.requestBody);
+
+      console.log(message);
+      schema.messages.create({
+        ...message
+      });
+      
+      return schema.messages.all();
+    });
     this.get("api/lesson/:id/classroom");
     this.get("api/lesson/:lessonId/messages", (schema: any, req) => {
       const { lessonId } = req.params;

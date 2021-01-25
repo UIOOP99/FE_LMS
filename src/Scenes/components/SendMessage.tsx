@@ -1,5 +1,5 @@
 // import components
-import React, {useState, useRef} from "react";
+import React, {useState, useRef, useEffect} from "react";
 import { useUserState } from 'services/Contexts/UserContext';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -11,6 +11,7 @@ import { Avatar, Card, Grid, IconButton } from "@material-ui/core";
 import { AccountBalance, ArrowBackIos, CloudUpload } from "@material-ui/icons";
 import useSWR from "swr";
 import { classroomInfoFetcher, classroomInfoKey } from "services/api/lesson";
+import { createMessageAPI } from "services/api/message";
 
 // style of components
 const useStyles = makeStyles((theme: Theme) =>
@@ -93,9 +94,9 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const SendMessage = ({classroomId}: {classroomId?: string}) => {
+const SendMessage = ({classroomId, updateMessages}: {classroomId?: string, updateMessages: ()=>any}) => {
 
-    const {avatarUrl} = useUserState();
+    const {id, fullName, avatarUrl} = useUserState();
     const classes = useStyles();
 
     // handler and state of text area component
@@ -109,6 +110,11 @@ const SendMessage = ({classroomId}: {classroomId?: string}) => {
 
     // handler and state of select class component
     const [classState, setClassState] = useState('');
+
+    useEffect(() => {
+        setClassState(classroomInfo?.name || '');
+    }, [classroomInfo]);
+
     const handleChangeClass = (event: React.ChangeEvent<{ value: unknown }>) => {
         let classChosen: string = event.target.value as string;
         setClassState(classChosen);
@@ -218,9 +224,9 @@ const SendMessage = ({classroomId}: {classroomId?: string}) => {
         else {
 
             // @ts-ignore
-            const [attachedFile] = fileInput.current.files;
-            let fileData = new FormData();
-            fileData.append('file-homeWork', attachedFile);
+            // const [attachedFile] = fileInput.current.files;
+            // let fileData = new FormData();
+            // fileData.append('file-homeWork', attachedFile);
             // let message = {
             //     idSender : userIdNumber,
             //     messageType : typeOfMessageState,
@@ -229,6 +235,18 @@ const SendMessage = ({classroomId}: {classroomId?: string}) => {
             //     hasFile : fileState.hasFile,
             //     file : fileData
             // };
+            
+            const message = {
+                userId : id,
+                userFullName: fullName,
+                classRoomName: classState,
+                message: textValue,
+                messageDate: new Date(),
+                messageType: 'message',
+            };
+
+            createMessageAPI(message).then(updateMessages);
+
 
             //send message for backEnd
             // axiosInstance.post("/sendMessage", message).then( res =>{

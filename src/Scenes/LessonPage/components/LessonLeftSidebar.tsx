@@ -1,11 +1,12 @@
 import { List } from '@material-ui/core';
-import { Edit } from '@material-ui/icons';
+import { Edit, CalendarToday } from '@material-ui/icons';
 import React from 'react';
+import useSWR from 'swr';
 import { useParams } from 'react-router-dom';
 import CollapseList from 'Scenes/components/CollapseList';
 import ExamCard from 'Scenes/components/ExamCard';
-import { lessonExamsFetcher, lessonExamsKey } from 'services/api/lesson';
-import useSWR from 'swr';
+import SessionsList from 'Scenes/components/SessionsList';
+import { lessonExamsFetcher, lessonExamsKey, lessonSessionsFetcher, lessonSessionsKey } from 'services/api/lesson';
 
 const examss = [
   {
@@ -22,9 +23,17 @@ const examss = [
   },
 ];
 
+const sessionsMock = [
+  {title: 'مباحث ویژه 1', date: '22 آذر 99 ساعت 18:00', status: 'عدم حضور استاد'},
+  {title: 'زبان تخصصی', date: '12 دی 99 ساعت 10:00', status: 'در حال ضبط'},
+  {title: 'مهندسی نت', date: '08 مهر 99 ساعت 21:00', status: 'ضبط شده'},
+];
+
 const LessonLeftSidebar = () => {
   const { id: lessonId } = useParams<{id: string}>();
   const { data: examsData } = useSWR([lessonExamsKey, lessonId], lessonExamsFetcher);
+  // const { data: { sessions } } = useSWR([lessonSessionsKey, lessonId], lessonSessionsFetcher);
+
   const exams = examsData || [];
   
   const ExamList = () => (
@@ -41,6 +50,8 @@ const LessonLeftSidebar = () => {
     </List>
   );
 
+  const SesstionList = () => <SessionsList sessions={sessionsMock} />;
+
   return (
     <div>
       <List>
@@ -49,6 +60,14 @@ const LessonLeftSidebar = () => {
           ListIcon={<Edit />}
           ListComponent={ExamList}
           listCount={exams.length}
+        />
+      </List>
+      <List>
+        <CollapseList 
+          listTitle="جلسات" 
+          ListIcon={<CalendarToday />}
+          ListComponent={SesstionList}
+          listCount={sessionsMock.length}
         />
       </List>
     </div>

@@ -98,6 +98,9 @@ const MessageCard = ({
 }: { className?: string } & IMessageCardProps) => {
   const classes = useStyles();
 
+  console.log('__st', classRoomName, classroom, userFullName, user);
+  
+
   const { role, fullName: myFullName } = useUserState();
   const [
     moreOptionsMenuAnchor,
@@ -116,7 +119,18 @@ const MessageCard = ({
   };
 
   const handleClassRoomClick = () => {
-    classroom && history.push(`/lesson/${random(1, 4)}`);
+    const fakeClassList = [
+      "کلاس طراحي شي گراي سيستم ها-۰۱",
+      "کلاس اقتصاد مهندسي-۰۱",
+      "کلاس مهندسي اينترنت-۰۱",
+      "کلاس آزمايشگاه شبكه هاي كامپيوتري-۰۶",
+    ];
+    const fakeId = classroom 
+      ? fakeClassList.indexOf(classRoomName as string) + 1
+      : random(1, 4);
+    console.log(classroom);
+    
+    classroom && history.push(`/lesson/${fakeId}`);
   };
 
   const handleAttachedFileClick = (file: IFile) => {

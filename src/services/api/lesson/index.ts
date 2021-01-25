@@ -17,9 +17,18 @@ export const lessonMessagesFetcher = async (key: string, lessonId: any, lessonFi
       include: 'classroom'
     }
   });
-  return zipWith(data.messages, data.users, 
+  const messages = zipWith(data.messages, data.users, 
     (a:any, b:any) => ({...a, user: b})
   );
+  return messages.map((message: any) => {
+    let user;
+    if (!!message.user) {user = message.user;}
+    else {user = data.users[data.users.length - 1];}
+    return ({
+    ...message,
+    user,
+    });
+  });
 };
 
 export const lessonMembersKey = '/lesson-members';

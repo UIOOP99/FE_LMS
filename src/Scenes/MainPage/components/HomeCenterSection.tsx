@@ -21,8 +21,7 @@ const HomeCenterSection = () => {
   );
   const messageCardMocks =
     messages?.slice().sort(
-      (a, b) => (b.id < a.id ? 1 : -1)
-      // new Date(b.messageDate).getTime() - new Date(a.messageDate).getTime()
+      (a, b) => new Date(b.messageDate).getTime() - new Date(a.messageDate).getTime()
     ) || [];
 
   return (

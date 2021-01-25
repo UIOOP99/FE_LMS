@@ -5,10 +5,11 @@ import {
   IconButton,
   makeStyles,
 } from "@material-ui/core";
-import { Home, Settings } from "@material-ui/icons";
+import { Home } from "@material-ui/icons";
 import React, { ReactElement, SyntheticEvent, useState } from "react";
 import { useHistory } from "react-router-dom";
 import BannerNav from "Scenes/components/BannerNav";
+import { useUserState } from "services/Contexts/UserContext";
 import ProfilePopover from "../../components/ProfilePopover";
 
 interface ILink {
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   navbar: {
     minHeight: theme.spacing(5),
     padding: theme.spacing(0, 1),
-    backgroundColor: theme.palette.grey["100"],
+    backgroundColor: theme.palette.secondary.light,
     position: "sticky",
     top: 0,
     zIndex: theme.zIndex.appBar,
@@ -49,10 +50,6 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(4),
     height: theme.spacing(4),
   },
-  settingButton: {
-    width: theme.spacing(3),
-    height: theme.spacing(3),
-  },
 }));
 
 const navbarLinks: ILink[] = [
@@ -60,11 +57,11 @@ const navbarLinks: ILink[] = [
   { title: "گلستان", path: "https://golestan.ui.ac.ir/" },
   { title: "آزمون", path: "." },
   { title: "تغذیه", path: "." },
-  { title: "کتابخانه", path: "." },
 ];
 
 const Navbar = () => {
   const classes = useStyles();
+  const user = useUserState()
 
   const history = useHistory();
 
@@ -74,10 +71,6 @@ const Navbar = () => {
   ] = useState<HTMLElement | null>(null);
 
   const handleNavigateToLink = (path: string) => history.push('/');
-
-  const handleSettingClick = () => {
-    return;
-  };
 
   const handleAvatarClick = (e: SyntheticEvent<HTMLElement>) => {
     setProfilePopoverAnchor(e.currentTarget);
@@ -93,6 +86,7 @@ const Navbar = () => {
           variant="text"
           {...(IconElement && { startIcon: IconElement })}
           onClick={() => handleNavigateToLink(link.path)}
+          color="primary"
         >
           {link.title}
         </Button>
@@ -110,14 +104,9 @@ const Navbar = () => {
 
         <Grid item xs />
 
-        <Grid className={classes.settingButtonContainer} item>
-          <IconButton onClick={handleSettingClick}>
-            <Settings className={classes.settingButton} />
-          </IconButton>
-        </Grid>
         <Grid className={classes.avatarContainer} item>
           <IconButton onClick={handleAvatarClick}>
-            <Avatar className={classes.avatar} src="avatar" />
+            <Avatar className={classes.avatar} src={user.avatarUrl} />
           </IconButton>
         </Grid>
       </Grid>

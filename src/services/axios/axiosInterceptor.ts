@@ -24,8 +24,8 @@ export const axiosInterceptor = (axiosInstance: AxiosInstance) => {
     (error) => {
       console.log(`error ${error}`)
       const originalRequest = error.config;
-      if (originalRequest.url === "/accounts/api/v1/profile/")
-        isProfileReq = true;
+      if (originalRequest?.url === "/accounts/api/v1/profile/")
+        {isProfileReq = true;}
 
       if (
         error.response?.status === 401 &&

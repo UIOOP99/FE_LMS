@@ -1,22 +1,23 @@
 // import components
-import React, {useState, useRef} from "react";
-import { axiosInstance } from "services/axios/axios";
+import React, {useState, useRef, useEffect} from "react";
 import { useUserState } from 'services/Contexts/UserContext';
-import { createStyles, makeStyles, Theme, useTheme } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
+import { Avatar, Card, Grid, IconButton } from "@material-ui/core";
+import { AccountBalance, ArrowBackIos, CloudUpload } from "@material-ui/icons";
+import useSWR from "swr";
+import { classroomInfoFetcher, classroomInfoKey } from "services/api/lesson";
+import { createMessageAPI } from "services/api/message";
 
 // style of components
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
-            width: '95%',
-            margin: theme.spacing(1, 'auto'),
+            padding: theme.spacing(2),
         },
         root: {
             '& .MuiTextField-root': {
@@ -32,12 +33,9 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
         },
         formControl: {
-            margin: theme.spacing(1),
-            marginRight: theme.spacing(4),
-            minWidth: 120,
-        },
-        chooseButton: {
-            margin: theme.spacing(1),
+            // margin: theme.spacing(1),
+            // marginRight: theme.spacing(4),
+            minWidth: theme.spacing(15),
         },
         spanOfFileName : {
             fontSize: '0.8rem',
@@ -55,30 +53,56 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         chooseFile : {
             position: 'absolute',
-            opacity : 0
+            opacity : 0,
+            maxWidth: theme.spacing(6)
         },
         submitBtn : {
-            margin: theme.spacing(1),
-            padding : theme.spacing(1),
-            paddingLeft: theme.spacing(4),
-            paddingRight: theme.spacing(4),
+            // margin: theme.spacing(1),
+            // padding : theme.spacing(1),
+            // paddingLeft: theme.spacing(4),
+            // paddingRight: theme.spacing(4),
         },
         alert : {
             width: '100%',
-            '& > * + *': {
-                marginTop: theme.spacing(2),
-            },
+            // '& > * + *': {
+            //     marginTop: theme.spacing(2),
+            // },
             margin: theme.spacing(1),
+        },
+        gridItemCenter: {
+            display: 'flex',
+            alignItems: 'center',
+        },
+        avatar: {
+          width: theme.spacing(6),
+          height: theme.spacing(6),
+        },
+        textfieldContainer: {
+            paddingRight: theme.spacing(1),
+        },
+        classIconContainer: {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: theme.spacing(8),
+        },
+        classIcon: {
+            width: theme.spacing(4),
+            height: theme.spacing(4),
+            color: theme.palette.primary.dark,
         }
     }),
 );
 
-const SendMessage = () => {
+const SendMessage = ({classroomId, updateMessages}: {classroomId?: string, updateMessages: ()=>any}) => {
 
-    const {idNumber: userIdNumber} = useUserState();
+    const {id, fullName, avatarUrl} = useUserState();
     const classes = useStyles();
 
     // handler and state of text area component
+    console.log('__', classroomId);
+    
+    const { data: classroomInfo } = useSWR([classroomInfoKey, classroomId], classroomInfoFetcher);
     const [textValue, setTextValue] = useState('');
     const handleChangeTextArea = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTextValue(event.target.value);
@@ -86,6 +110,11 @@ const SendMessage = () => {
 
     // handler and state of select class component
     const [classState, setClassState] = useState('');
+
+    useEffect(() => {
+        setClassState(classroomInfo?.name || '');
+    }, [classroomInfo]);
+
     const handleChangeClass = (event: React.ChangeEvent<{ value: unknown }>) => {
         let classChosen: string = event.target.value as string;
         setClassState(classChosen);
@@ -103,7 +132,12 @@ const SendMessage = () => {
         //         alert(error);
         //     });
 
-        classList = ["طراحی شی گرا", "سیگنال و سیستم", "مهندسی اینترنت", "رایانش امن"];
+        classList = [
+            "کلاس طراحي شي گراي سيستم ها-۰۱",
+            "کلاس اقتصاد مهندسي-۰۱",
+            "کلاس مهندسي اينترنت-۰۱",
+            "کلاس آزمايشگاه شبكه هاي كامپيوتري-۰۶",
+          ];
         return (
             classList.map( (className) => <MenuItem value={className}>{className}</MenuItem>)
         );
@@ -120,13 +154,13 @@ const SendMessage = () => {
     const ChooseFile = () => {
         if (fileState.visibilityFileButton){
             return (
-                <>
-                    <Button className={classes.chooseButton} variant="outlined">
-                        انتخاب فایل پیوست
+                <Grid className={classes.gridItemCenter} item>
+                    <IconButton>
                         <input className={classes.chooseFile} type="file" onChange={handleSelectFile} ref={fileInput}/>
-                    </Button>
+                        <CloudUpload />
+                    </IconButton>
                     {showFileName()}
-                </>
+                </Grid>
             );
         }
         return null;
@@ -195,17 +229,29 @@ const SendMessage = () => {
         else {
 
             // @ts-ignore
-            const attachedFile = fileInput.current.files[0];
-            let fileData = new FormData();
-            fileData.append('file-homeWork', attachedFile);
-            let message = {
-                idSender : userIdNumber,
-                messageType : typeOfMessageState,
-                messageText : textValue,
-                messageClass : classState,
-                hasFile : fileState.hasFile,
-                file : fileData
+            // const [attachedFile] = fileInput.current.files;
+            // let fileData = new FormData();
+            // fileData.append('file-homeWork', attachedFile);
+            // let message = {
+            //     idSender : userIdNumber,
+            //     messageType : typeOfMessageState,
+            //     messageText : textValue,
+            //     messageClass : classState,
+            //     hasFile : fileState.hasFile,
+            //     file : fileData
+            // };
+            
+            const message = {
+                userId : id,
+                userFullName: fullName,
+                classRoomName: classState,
+                message: textValue,
+                messageDate: new Date(),
+                messageType: 'message',
             };
+
+            createMessageAPI(message).then(updateMessages);
+
 
             //send message for backEnd
             // axiosInstance.post("/sendMessage", message).then( res =>{
@@ -253,14 +299,14 @@ const SendMessage = () => {
         if (alertState.showAlert){
             if (alertState.isError){
                 return (
-                    <Alert variant="filled" severity="error">
+                    <Alert className={classes.alert} variant="filled" severity="error">
                         {alertState.alertText}
                     </Alert>
                 );
             }
             else {
                 return (
-                    <Alert variant="filled" severity="success">
+                    <Alert className={classes.alert} variant="filled" severity="success">
                         {alertState.alertText}
                     </Alert>
                 );
@@ -270,57 +316,94 @@ const SendMessage = () => {
     };
 
     return (
-        <div className={classes.container}>
+        <Card className={classes.container} elevation={0}>
             <form className={classes.root} noValidate autoComplete="off" onSubmit={submitForm}>
-                <div className={classes.row}>
-                    <TextField
-                        id="outlined-multiline-static"
-                        label="متن پیام"
-                        multiline
-                        rows={4}
-                        variant="outlined"
-                        value={textValue}
-                        onChange={handleChangeTextArea}
-                    />
-                </div>
-                <div className={classes.row}>
-                    <FormControl variant="outlined" className={classes.formControl}>
-                        <InputLabel id="demo-simple-select-outlined-label">انتخاب کلاس</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-outlined-label"
-                            id="demo-simple-select-outlined"
-                            value={classState}
-                            onChange={handleChangeClass}
-                            label="انتخاب کلاس"
-                        >
-                            {listOfClass()}
-                        </Select>
-                    </FormControl>
-                    <FormControl variant="outlined" className={classes.formControl}>
-                        <InputLabel id="demo-simple-select-outlined-label">نوع پیام</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-outlined-label"
-                            id="demo-simple-select-outlined"
-                            value={typeOfMessageState}
-                            onChange={handleChangeSelectType}
-                            label="نوع پیام"
-                        >
-                            <MenuItem value="usual">عادی</MenuItem>
-                            <MenuItem value="homeWork">تکلیف</MenuItem>
-                        </Select>
-                    </FormControl>
+                <Grid className={classes.textfieldContainer} container spacing={2}>
+                    <Grid className={classes.gridItemCenter} item>
+                        <Avatar className={classes.avatar} src={avatarUrl}/>
+                    </Grid>
+                    <Grid item xs>
+                        <TextField
+                            id="outlined-multiline-static"
+                            label="متن پیام"
+                            multiline
+                            size="small"
+                            rows={2}
+                            variant="outlined"
+                            value={textValue}
+                            onChange={handleChangeTextArea}
+                        />
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2}>
+                    <Grid className={classes.classIconContainer} item >
+                        <AccountBalance className={classes.classIcon} />
+                    </Grid>
+                    <Grid className={classes.gridItemCenter} item>
+                        <FormControl variant="outlined" className={classes.formControl}>
+                            {/* <InputLabel id="demo-simple-select-outlined-label">انتخاب کلاس</InputLabel> */}
+                            {
+                                !!classroomId ?
+                                <TextField 
+                                    value={classroomInfo?.name}
+                                    disabled={!!classroomId} 
+                                    variant="outlined"      
+                                    size="small"                     
+                                />
+                                :
+                                <TextField
+                                    // labelId="demo-simple-select-outlined-label"
+                                    select
+                                    id="demo-simple-select-outlined"
+                                    value={classState}
+                                    onChange={handleChangeClass}
+                                    variant="outlined"
+                                    size="small"
+                                    label="انتخاب کلاس"
+                                >
+                                    {listOfClass()}
+                                </TextField>
+                            }
+                        </FormControl>
+                    </Grid>
+                    <Grid className={classes.gridItemCenter} item>
+                        <FormControl variant="outlined" className={classes.formControl}>
+                            {/* <InputLabel id="demo-simple-select-outlined-label">نوع پیام</InputLabel> */}
+                            <TextField
+                                // labelId="demo-simple-select-outlined-label"
+                                select
+                                id="demo-simple-select-outlined"
+                                value={typeOfMessageState}
+                                onChange={handleChangeSelectType}
+                                variant="outlined"
+                                size="small"
+                                label="نوع پیام"
+                            >
+                                <MenuItem value="usual">عادی</MenuItem>
+                                <MenuItem value="homeWork">تکلیف</MenuItem>
+                            </TextField>
+                        </FormControl>
+                    </Grid>
                     {ChooseFile()}
-                </div>
-                <div className={classes.row}>
-                    <Button className={classes.submitBtn} color="primary" size="large" variant="contained" type="submit">
-                        تأیید
-                    </Button>
-                    <div className={classes.alert}>
-                        {showAlert()}
-                    </div>
-                </div>
+                    <Grid item xs/>
+                    <Grid className={classes.gridItemCenter} item>
+                        <Button 
+                        className={classes.submitBtn} 
+                        endIcon={<ArrowBackIos />}
+                        disableElevation 
+                        color="primary" 
+                        variant="contained" 
+                        type="submit"
+                    >
+                            ارسال
+                        </Button>
+                    </Grid>                        
+                </Grid>                    
+                <Grid container>
+                    {showAlert()}
+                </Grid>
             </form>
-        </div>
+        </Card>
     );
 };
 

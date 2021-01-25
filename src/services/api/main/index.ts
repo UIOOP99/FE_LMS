@@ -15,3 +15,9 @@ export const timelineMessagesFetcher = async (key: string, lessonFilter: string)
     (a:any, b:any, c:any) => ({...a, user: b, classroom: c})
   );
 };
+
+export const allSessionsKey = '/all-sessions';
+export const allSessionsFetcher = async (key: string) => {
+  const {data} = await axiosInstance.get(`${mainBaseUrl}/all-sessions`);
+  return data.sessions;
+};

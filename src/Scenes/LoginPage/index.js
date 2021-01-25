@@ -16,7 +16,7 @@ import BannerNav from "../components/BannerNav"
 let useStyles = makeStyles((theme) => ({
   loginForm: {
     justifyContent: "center",
-    minHeight: "90vh",
+    minHeight: "90vh", 
     width: window.innerWidth > 500 ? 500 : 300,
     maxWidth: 700,
   },
@@ -41,6 +41,9 @@ function Login() {
   };
 
   let history = useHistory()
+
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
    
@@ -52,7 +55,7 @@ function Login() {
         password : password
     }
     axiosInstance.post("/login",data).then(res =>{
-        LSService.setToken(createTokenObj(res.refresh.token, res.access.token))
+        LSService.setToken(createTokenObj(res.data.access.token, res.data.refresh.token))
         history.push("/")
 
     })

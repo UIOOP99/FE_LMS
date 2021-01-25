@@ -132,7 +132,12 @@ const SendMessage = ({classroomId, updateMessages}: {classroomId?: string, updat
         //         alert(error);
         //     });
 
-        classList = ["طراحی شی گرا", "سیگنال و سیستم", "مهندسی اینترنت", "رایانش امن"];
+        classList = [
+            "کلاس طراحي شي گراي سيستم ها-۰۱",
+            "کلاس اقتصاد مهندسي-۰۱",
+            "کلاس مهندسي اينترنت-۰۱",
+            "کلاس آزمايشگاه شبكه هاي كامپيوتري-۰۶",
+          ];
         return (
             classList.map( (className) => <MenuItem value={className}>{className}</MenuItem>)
         );

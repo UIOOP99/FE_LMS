@@ -1,19 +1,43 @@
-import { Avatar, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core';
-import React, { ReactNode } from 'react';
-
+import {
+  Avatar,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
+import React from "react";
 
 interface IClassCardProps {
-  title: string,
-  Icon?: any,
-  primaryDesc?: string,
-  secondaryDesc?: string
+  id: number;
+  title: string;
+  Icon?: any;
+  active?: boolean;
+  primaryDesc?: string;
+  secondaryDesc?: string;
 }
+const useStyles = makeStyles((theme) => ({
+  root: {
+    backgroundColor: theme.palette.primary.main,
+  },
+}));
 
-const ClassCard = ({title, Icon, primaryDesc, secondaryDesc, ...otherProps}: IClassCardProps) => {
+const ClassCard = ({
+  title,
+  Icon,
+  primaryDesc,
+  secondaryDesc,
+  active,
+}: IClassCardProps) => {
+  const classes = useStyles();
   return (
-    <ListItem {...otherProps} alignItems="flex-start" button>
-      <ListItemIcon><Avatar><Icon /></Avatar></ListItemIcon>
-      <ListItemText 
+    <ListItem alignItems="flex-start" button>
+      <ListItemIcon>
+        <Avatar classes={{ root: active ? classes.root : "" }}>
+          <Icon />
+        </Avatar>
+      </ListItemIcon>
+      <ListItemText
         primary={title}
         secondary={
           <>

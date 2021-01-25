@@ -1,4 +1,4 @@
-import { Card, Grid, makeStyles, MenuItem } from "@material-ui/core";
+import { Card, Grid, makeStyles } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
 import React from "react";
 
@@ -28,7 +28,7 @@ export interface IMessageCardProps {
 const useStyles = makeStyles((theme) => ({
   card: {
     padding: theme.spacing(2),
-    backgroundColor: theme.palette.grey[100],
+    backgroundColor: 'white',
   },
   headerContainer: {
     marginBottom: theme.spacing(1),
@@ -116,8 +116,6 @@ const MessageCardSkeleton = () => {
       </Grid>
     );
   };
-
-
 
   return (
     <>

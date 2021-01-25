@@ -23,6 +23,7 @@ const HomeCenterSection = () => {
     messages?.slice().sort(
       (a, b) => new Date(b.messageDate).getTime() - new Date(a.messageDate).getTime()
     ) || [];
+    
 
   return (
     <>
@@ -34,7 +35,7 @@ const HomeCenterSection = () => {
       <Spacer spacing={2} orientation="h" />
       {/* <MessageListSkeleton/> */}
       {messages ? (
-        <MessageList messages={messageCardMocks} updateMessages={revalidate} />
+        <MessageList messages={messageCardMocks} updateMessages={revalidate}/>
       ) : (
         <MessageListSkeleton />
       )}

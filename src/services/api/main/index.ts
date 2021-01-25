@@ -11,9 +11,23 @@ export const timelineMessagesFetcher = async (key: string, lessonFilter: string)
       include: 'classroom'
     }
   });
-  return zipWith(data.messages, data.users, data.classrooms, 
+  
+  const messages = zipWith(data.messages, data.users, data.classrooms, 
     (a:any, b:any, c:any) => ({...a, user: b, classroom: c})
-  );
+    );
+  return messages.map((message: any) => {
+    let user;
+    if (!!message.user) {user = message.user;}
+    else {user = data.users[data.users.length - 1];}
+    let classroom;
+    if (!!message.classroom) {classroom = message.classroom;}
+    else {classroom = data.users[data.users.length - 1];}
+    return ({
+    ...message,
+    user,
+    classroom,
+    });
+  });
 };
 
 export const allSessionsKey = '/all-sessions';

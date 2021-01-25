@@ -94,6 +94,13 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
+const classList = [
+    "کلاس طراحي شي گراي سيستم ها-۰۱",
+    "کلاس اقتصاد مهندسي-۰۱",
+    "کلاس مهندسي اينترنت-۰۱",
+    "کلاس آزمايشگاه شبكه هاي كامپيوتري-۰۶",
+  ];
+
 const SendMessage = ({classroomId, updateMessages}: {classroomId?: string, updateMessages: ()=>any}) => {
 
     const {id, fullName, avatarUrl} = useUserState();
@@ -122,7 +129,7 @@ const SendMessage = ({classroomId, updateMessages}: {classroomId?: string, updat
 
     // get list of class from backEnd
     const listOfClass = () => {
-        let classList = [];
+        // let classList = [];
 
         // request for get list of classes that this user member of that
         // axiosInstance.post("/classlist", userIdNumber).then( res =>{
@@ -132,12 +139,7 @@ const SendMessage = ({classroomId, updateMessages}: {classroomId?: string, updat
         //         alert(error);
         //     });
 
-        classList = [
-            "کلاس طراحي شي گراي سيستم ها-۰۱",
-            "کلاس اقتصاد مهندسي-۰۱",
-            "کلاس مهندسي اينترنت-۰۱",
-            "کلاس آزمايشگاه شبكه هاي كامپيوتري-۰۶",
-          ];
+       
         return (
             classList.map( (className) => <MenuItem value={className}>{className}</MenuItem>)
         );
@@ -186,10 +188,14 @@ const SendMessage = ({classroomId, updateMessages}: {classroomId?: string, updat
 
     };
 
-
+    
+    
     const [typeOfMessageState, setTypeOfMessageState] = useState('');
+    // console.log('__type', typeOfMessageState);
     const handleChangeSelectType = (event: React.ChangeEvent<{ value: unknown }>) => {
         let typeChosen: string = event.target.value as string;
+        console.log('__t', typeChosen);
+        
         setTypeOfMessageState(typeChosen);
 
         if ( typeChosen === 'homeWork' ){
@@ -240,17 +246,22 @@ const SendMessage = ({classroomId, updateMessages}: {classroomId?: string, updat
             //     hasFile : fileState.hasFile,
             //     file : fileData
             // };
+            // console.log('____', classState, classList.indexOf(classState) + 1) ;
             
             const message = {
                 userId : id,
+                classroomId: classList.indexOf(classState) + 1,
                 userFullName: fullName,
                 classRoomName: classState,
                 message: textValue,
                 messageDate: new Date(),
-                messageType: 'message',
+                messageType: typeOfMessageState === 'homeWork' ? 'assignment' : 'message',
             };
 
-            createMessageAPI(message).then(updateMessages);
+
+            createMessageAPI(message).then(() => {
+                setTimeout(updateMessages , 100);
+            });
 
 
             //send message for backEnd

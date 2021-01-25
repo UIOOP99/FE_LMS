@@ -9,9 +9,9 @@ interface IClassCardProps {
   secondaryDesc?: string
 }
 
-const ClassCard = ({title, Icon, primaryDesc, secondaryDesc}: IClassCardProps) => {
+const ClassCard = ({title, Icon, primaryDesc, secondaryDesc, ...otherProps}: IClassCardProps) => {
   return (
-    <ListItem alignItems="flex-start" button>
+    <ListItem {...otherProps} alignItems="flex-start" button>
       <ListItemIcon><Avatar><Icon /></Avatar></ListItemIcon>
       <ListItemText 
         primary={title}

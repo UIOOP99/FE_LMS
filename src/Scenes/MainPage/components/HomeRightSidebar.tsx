@@ -7,8 +7,8 @@ import { useUserState } from 'services/Contexts/UserContext';
 const HomeRightSidebar = () => {
   const { idNumber } = useUserState();
 
-  return <LessonsListSkeleton/>
-  // return <LessonsList idNumber={idNumber} />;
+  return <LessonsList idNumber={idNumber} />;
+  // return <LessonsListSkeleton/>
 };
 
 export default HomeRightSidebar;

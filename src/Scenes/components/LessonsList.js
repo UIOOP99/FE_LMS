@@ -5,17 +5,22 @@ import ClassTwoToneIcon from '@material-ui/icons/ClassTwoTone';
 
 import { lessonsFetcher, lessonsKey } from 'services/api/user';
 import ClassCard from 'Scenes/components/ClassCard';
+import { useHistory } from 'react-router-dom';
 
 
 
 export default function LessonsList({idNumber}) {
 //  const { data: { lessons } } = useSWR([lessonsKey, userId], lessonsFetcher);
     const lessons = lessonsMock;
+    const history = useHistory();
+
+    const handleItemOnClick = (id) => history.push(`lesson/${id}`);
 
     return <Fragment >
         {lessons.map((lesson) => 
             <ClassCard
-            key={lesson.code}   
+            onClick={()=> handleItemOnClick(lesson.id)}
+            key={lesson.code + lesson.title}   
             Icon= {ClassTwoToneIcon}
             title={lesson.title}
             primaryDesc={`کد درس ${lesson.code}`}
@@ -24,9 +29,9 @@ export default function LessonsList({idNumber}) {
 };
 
 const lessonsMock = [
-    {title: 'مهندسی نت', code: '36-20-027', memebersNumber: '42'},
-    {title: 'مباحث ویژه 1', code: '36-21-025', memebersNumber: '29'},
-    {title: 'زبان تخصصی', code: '36-21-366', memebersNumber: '12'}
+    {id: '30',title: 'مهندسی نت', code: '36-20-027', memebersNumber: '42'},
+    {id: '30', title: 'مباحث ویژه 1', code: '36-21-025', memebersNumber: '29'},
+    {id: '30', title: 'زبان تخصصی', code: '36-21-366', memebersNumber: '12'}
 ];
 
 

@@ -106,10 +106,26 @@ createServer({
     this.get("api/users/:userId/lessons", (schema: any, req) => {
       const { userId } = req.params;
       // console.log(schema.users.find(userId));
-      const lessons = schema.classrooms.where({ membersId: userId });
+      // const lessons = schema.classrooms.where({ membersId: userId });
 
       return schema.classrooms.all();
       // return lessons;
+    });
+    this.get("api/users/:userIdNumber/sessions", (schema: any, req) => {
+      // const { userIdNumber } = req.params;
+      // const user = schema.users.where({ idNumber: userIdNumber });
+      // let sessions = [] as any[];
+      // user.classrooms.forEach((cls: any) => {
+      //   sessions.concat(cls.sessions);
+      // });
+      // return sessions.filter((s) => s.isToday === true);
+      const sessions = schema.sessions.all().slice(0, 8);
+      return sessions;
+    });
+    this.get("api/users/:idNumber/profile", (schema: any, req) => {
+      const { idNumber } = req.params;
+      const user = schema.users.where({ idNumber });
+      return user;
     });
   },
 });

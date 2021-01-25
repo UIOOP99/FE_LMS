@@ -13,6 +13,9 @@ export default Factory.extend({
   avatarUrl() {
     return `https://i.pravatar.cc/150?u=${this.idNumber}`;
   },
+  role(i :number) {
+    return 'student'
+  },
   idNumber: () =>
     `${sample([
       "963613045",

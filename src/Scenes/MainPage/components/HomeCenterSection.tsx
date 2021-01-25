@@ -20,9 +20,9 @@ const HomeCenterSection = () => {
     timelineMessagesFetcher
   );
   const messageCardMocks =
-    messages?.sort(
-      (a, b) =>
-        new Date(b.messageDate).getTime() - new Date(a.messageDate).getTime()
+    messages?.slice().sort(
+      (a, b) => (b.id < a.id ? 1 : -1)
+      // new Date(b.messageDate).getTime() - new Date(a.messageDate).getTime()
     ) || [];
     
 
@@ -30,7 +30,7 @@ const HomeCenterSection = () => {
     <>
       <ScrollToTopOnMount />
       {/* <Filler height="100px" text="insert create post component here"/> */}
-      <SendMessage updateMessages={revalidate}/>
+      <SendMessage updateMessages={revalidate} />
       <Spacer spacing={2} orientation="h" />
       <FilterSelection title="تایم‌لاین" />
       <Spacer spacing={2} orientation="h" />

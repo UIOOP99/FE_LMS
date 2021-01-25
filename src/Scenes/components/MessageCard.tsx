@@ -2,6 +2,7 @@ import {
   Avatar,
   Button,
   Card,
+  Dialog,
   Grid,
   IconButton,
   makeStyles,
@@ -16,6 +17,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { deleteMessageAPI } from "services/api/message";
 import { useUserState } from "services/Contexts/UserContext";
+import HomeworkTable from "./HomeworkTable";
 
 interface IFile {
   fileName: string;
@@ -104,7 +106,9 @@ const MessageCard = ({
     setMoreOptionsMenuAnchor,
   ] = useState<HTMLElement | null>(null);
 
-  const showAnswersButton = role === "professor";
+  const [isAnswerModalOpen, setIsAnswerModalOpen] = useState(false);
+
+  const showAnswersButton = role === 'professor';
 
   //TODO: need a more elegant way
   const isMyOwnMessage = userFullName === myFullName;
@@ -124,6 +128,7 @@ const MessageCard = ({
   };
 
   const handleShowAnswersClick = () => {
+    setIsAnswerModalOpen(true);
     return;
   };
 
@@ -251,22 +256,28 @@ const MessageCard = ({
     );
 
   return (
-    <Card className={`${className} ${classes.card}`} elevation={0}>
-      <Grid container>
-        {renderHeader(!!MenuItems?.length)}
-        {renderContent()}
-        {renderFooter()}
-      </Grid>
-      {!!MenuItems?.length && (
-        <Menu
-          anchorEl={moreOptionsMenuAnchor}
-          open={!!moreOptionsMenuAnchor}
-          onClose={() => setMoreOptionsMenuAnchor(null)}
-        >
-          {MenuItems}
-        </Menu>
-      )}
-    </Card>
+    <>
+      <Card className={`${className} ${classes.card}`} elevation={0}>
+        <Grid container>
+          {renderHeader(!!MenuItems?.length)}
+          {renderContent()}
+          {renderFooter()}
+        </Grid>
+        {
+          !!MenuItems?.length &&
+          <Menu
+            anchorEl={moreOptionsMenuAnchor}
+            open={!!moreOptionsMenuAnchor}
+            onClose={() => setMoreOptionsMenuAnchor(null)}
+          >
+            {MenuItems}
+          </Menu>
+        }
+      </Card>
+      <Dialog open={isAnswerModalOpen} onClose={() => setIsAnswerModalOpen(false)}>
+        <HomeworkTable />
+      </Dialog>
+    </>
   );
 };
 

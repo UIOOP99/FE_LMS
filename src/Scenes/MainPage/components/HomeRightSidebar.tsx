@@ -27,6 +27,7 @@ const HomeRightSidebar = () => {
   //   };
   //   fetchDate();
   // }, [id]);
+  console.log(lessonData)
 
   return !!lessonData ? (
     <LessonsList

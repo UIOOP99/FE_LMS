@@ -12,9 +12,9 @@ interface IClassCardProps {
   id: number;
   title: string;
   Icon?: any;
-  status?: string;
-  date?: string;
-  time: string;
+  active?: boolean;
+  primaryDesc?: string;
+  secondaryDesc?: string;
 }
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,18 +22,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ClassCard = ({ title, Icon, date, status, time }: IClassCardProps) => {
-  const innerStatus = (status: string) =>
-    status === "active"
-      ? "در حال برگزاری"
-      : status === "recorded"
-      ? "ضبط شده"
-      : "درحال ضبط فایل";
+const ClassCard = ({
+  title,
+  Icon,
+  primaryDesc,
+  secondaryDesc,
+  active,
+}: IClassCardProps) => {
   const classes = useStyles();
   return (
     <ListItem alignItems="flex-start" button>
       <ListItemIcon>
-        <Avatar>
+        <Avatar classes={{ root: active ? classes.root : "" }}>
           <Icon />
         </Avatar>
       </ListItemIcon>
@@ -41,10 +41,8 @@ const ClassCard = ({ title, Icon, date, status, time }: IClassCardProps) => {
         primary={title}
         secondary={
           <>
-            <Typography variant="body1">{date + " " + time}</Typography>
-            <Typography variant="caption">
-              {innerStatus(status || "")}
-            </Typography>
+            <Typography variant="body1">{primaryDesc}</Typography>
+            <Typography variant="caption">{secondaryDesc}</Typography>
           </>
         }
       />

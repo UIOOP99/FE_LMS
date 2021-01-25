@@ -14,6 +14,7 @@ createServer({
     classroom: Model.extend({
       members: hasMany("user"),
       sessions: hasMany("session"),
+      exams: hasMany("exam"),
     }),
     message: Model.extend({
       user: belongsTo("user"),

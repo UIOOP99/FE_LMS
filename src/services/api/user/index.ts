@@ -1,6 +1,6 @@
 import { axiosInstance } from "services/axios/axios";
 
-export const userBaseUrl = '/user';
+export const userBaseUrl = '/users';
 
 export const profileKey = '/profile';
 export const profileFetcher = async (key: string, userId: any) => {
@@ -11,5 +11,5 @@ export const profileFetcher = async (key: string, userId: any) => {
 export const lessonsKey = '/lessons';
 export const lessonsFetcher = async (key: string, userId: any) => {
   const {data} = await axiosInstance.get(`${userBaseUrl}/${userId}/lessons`);
-  return data.lessons;
+  return data;
 };

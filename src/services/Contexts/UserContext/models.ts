@@ -1,6 +1,7 @@
 import { IRules } from "services/role/model";
 
 export interface IUserState {
+  id : number ;
   username: string;
   fullName?: string,
   idNumber?: string,

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 
-import { Avatar, Button, Card, Grid, IconButton, makeStyles, Menu, MenuItem, Typography } from '@material-ui/core';
+import { Avatar, Button, Card, Dialog, Grid, IconButton, makeStyles, Menu, MenuItem, Modal, Typography } from '@material-ui/core';
 import { MoreHoriz } from '@material-ui/icons';
 import moment from 'moment-jalaali';
 import { useUserState } from 'services/Contexts/UserContext';
 import { useHistory } from 'react-router-dom';
 import { deleteMessageAPI } from 'services/api/message';
+import HomeworkTable from './HomeworkTable';
 
 
 interface IFile {
@@ -80,9 +81,10 @@ const MessageCard = ({
   }: {className?: string} & IMessageCardProps) => {
   const classes = useStyles();
 
-
   const {role, fullName: myFullName} = useUserState();
   const [moreOptionsMenuAnchor, setMoreOptionsMenuAnchor] = useState<HTMLElement | null>(null);
+
+  const [isAnswerModalOpen, setIsAnswerModalOpen] = useState(false);
 
   const showAnswersButton = role === 'professor';
 
@@ -104,6 +106,7 @@ const MessageCard = ({
   };
 
   const handleShowAnswersClick = () => {
+    setIsAnswerModalOpen(true);
     return;
   };
 
@@ -198,23 +201,28 @@ const MessageCard = ({
   isMyOwnMessage && MenuItems.push(<MenuItem key="delete" onClick={handleDeleteMessage}>حذف</MenuItem>);
 
   return (
-    <Card className={`${className} ${classes.card}`} elevation={0}>
-      <Grid container>
-        {renderHeader(!!MenuItems?.length)}
-        {renderContent()}
-        {renderFooter()}
-      </Grid>
-      {
-        !!MenuItems?.length &&
-        <Menu
-          anchorEl={moreOptionsMenuAnchor}
-          open={!!moreOptionsMenuAnchor}
-          onClose={() => setMoreOptionsMenuAnchor(null)}
-        >
-          {MenuItems}
-        </Menu>
-      }
-    </Card>
+    <>
+      <Card className={`${className} ${classes.card}`} elevation={0}>
+        <Grid container>
+          {renderHeader(!!MenuItems?.length)}
+          {renderContent()}
+          {renderFooter()}
+        </Grid>
+        {
+          !!MenuItems?.length &&
+          <Menu
+            anchorEl={moreOptionsMenuAnchor}
+            open={!!moreOptionsMenuAnchor}
+            onClose={() => setMoreOptionsMenuAnchor(null)}
+          >
+            {MenuItems}
+          </Menu>
+        }
+      </Card>
+      <Dialog open={isAnswerModalOpen} onClose={() => setIsAnswerModalOpen(false)}>
+        <HomeworkTable />
+      </Dialog>
+    </>
   );
 };
 

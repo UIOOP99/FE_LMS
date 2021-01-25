@@ -1,13 +1,20 @@
 import React from "react";
+import LessonsListSkeleton from "Scenes/components/LessonListSkeleton";
 import SessionsList from "Scenes/components/SessionsList";
+import { ISession } from "Scenes/LessonPage/components/LessonLeftSidebar";
+import { sessionsFetcher, sessionsKey } from "services/api/user";
+import { useUserState } from "services/Contexts/UserContext";
+import useSWR from "swr";
 
-const HomeRightSidebar = () => {
-  //  const { data: { sessions } } = useSWR([allSessionsKey], allSessionsFetcher);
+const HomeLeftSideBar = () => {
+  const { idNumber } = useUserState();
+  const { data } = useSWR<ISession[]>([sessionsKey, idNumber], sessionsFetcher);
+  console.log(data, "home left");
 
-  return <SessionsList sessions={sessionsMock} />;
+  return data ? <SessionsList sessions={data} /> : <LessonsListSkeleton />;
 };
 
-export default HomeRightSidebar;
+export default HomeLeftSideBar;
 
 const sessionsMock = [
   {

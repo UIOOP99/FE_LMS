@@ -9,6 +9,7 @@ import { Home } from "@material-ui/icons";
 import React, { ReactElement, SyntheticEvent, useState } from "react";
 import { useHistory } from "react-router-dom";
 import BannerNav from "Scenes/components/BannerNav";
+import { useUserState } from "services/Contexts/UserContext";
 import ProfilePopover from "../../components/ProfilePopover";
 
 interface ILink {
@@ -60,6 +61,7 @@ const navbarLinks: ILink[] = [
 
 const Navbar = () => {
   const classes = useStyles();
+  const user = useUserState()
 
   const history = useHistory();
 
@@ -104,7 +106,7 @@ const Navbar = () => {
 
         <Grid className={classes.avatarContainer} item>
           <IconButton onClick={handleAvatarClick}>
-            <Avatar className={classes.avatar} src="avatar" />
+            <Avatar className={classes.avatar} src={user.avatarUrl} />
           </IconButton>
         </Grid>
       </Grid>

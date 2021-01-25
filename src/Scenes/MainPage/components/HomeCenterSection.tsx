@@ -24,6 +24,7 @@ const HomeCenterSection = () => {
       (a, b) =>
         new Date(b.messageDate).getTime() - new Date(a.messageDate).getTime()
     ) || [];
+    
 
   return (
     <>
@@ -35,7 +36,7 @@ const HomeCenterSection = () => {
       <Spacer spacing={2} orientation="h" />
       {/* <MessageListSkeleton/> */}
       {messages ? (
-        <MessageList messages={messageCardMocks} />
+        <MessageList messages={messageCardMocks} updateMessages={revalidate}/>
       ) : (
         <MessageListSkeleton />
       )}

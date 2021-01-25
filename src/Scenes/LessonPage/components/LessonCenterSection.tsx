@@ -42,7 +42,7 @@ const LessonCenterSection = () => {
       <FilterSelection title={classroomInfo?.name} />
       <Spacer spacing={2} orientation="h" />
       {messages ? (
-        <MessageList messages={messageCardMocks} />
+        <MessageList messages={messageCardMocks} updateMessages={revalidate} />
       ) : (
         <MessageCardSkeleton />
       )}
